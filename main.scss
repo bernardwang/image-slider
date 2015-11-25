@@ -69,6 +69,8 @@ html, body{
 
 .slider-nav{
 	width: 100%;
+	margin: 20px;
+	
 	@include flexbox((
     display: flex,
 		flex-wrap: nowrap,
@@ -76,13 +78,20 @@ html, body{
 		justify-content: center,
 		align-content: center
   ));
+	
+	ul{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
 }
 
 .slider-trigger{
-	margin: 0;
-	padding: 0;
 	width: 10px;
 	height: 10px;
+	margin: 6px;
+	padding: 0;
+	display: inline-block;
 	border-radius: 10px;
 	border: 1px solid red;
 	background-color: red;
