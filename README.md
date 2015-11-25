@@ -1,2 +1,1 @@
-# customslider
-why not
+# custom-slider	

@@ -1,0 +1,166 @@
+@import 'compass/css3';
+
+$background: #f2f2f2;
+$highlight: #007ea1;
+
+@include keyframes(slide-in) {
+	0% { 
+		@include transform( translateX(-100%) ); 
+	}
+	100% { 
+		@include transform( translateX(0%) );
+	}
+}
+
+@include keyframes(slide-out) {
+	0% { 
+		@include transform( translateX(100%) ); 
+	}
+	100% { 
+		@include transform( translateX(200%) ); 
+	}
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: $background;
+	font-family: Open Sans, Helvetica;
+}
+
+.slider{
+	width: 100vw;
+	height: 100%;
+	@include flexbox((
+    display: flex,
+		flex-wrap: wrap,
+    flex-direction: row,
+		justify-content: center,
+		align-content: center
+  ));
+
+}
+
+.slider-gallery{
+	margin: 0;
+	position: relative;
+}
+
+.slider-image{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: block;
+	opacity: 0;
+	
+	@include transition( opacity 0.5s ease-out );
+	@include animation( slide-out 1s forwards );
+	
+	&.selected{
+		position: relative;
+		opacity: 1;
+		@include animation( slide-in 1s forwards );
+	}
+}
+
+.slider-nav{
+	width: 100%;
+	@include flexbox((
+    display: flex,
+		flex-wrap: nowrap,
+    flex-direction: row,
+		justify-content: center,
+		align-content: center
+  ));
+}
+
+.slider-trigger{
+	margin: 0;
+	padding: 0;
+}
+
+
+#tab-list{	
+	padding-top: 30px;
+	padding-left: 2vw;
+	background-color: $background;
+	@include flexbox((
+    display: flex,
+		flex-wrap: nowrap,
+    flex-direction: row,
+		justify-content: flex-start
+  ));
+
+	.tab-title{
+
+		margin: 0px 2px 0px 2px;
+		padding: 20px;
+		font-size: 1.7vw;
+		text-align: center;
+		
+		color: $highlight;
+		background-color: $background;
+		
+		@include transition(color 0.3s ease-in-out);
+		
+		&:hover, &:focus {
+			color: black;
+			outline: none;
+		}
+		
+		&.open{
+			color: black;
+			background-color: white;
+			border-top: 3px solid $highlight;
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
+			@include box-shadow(
+				3px -3px 6px -3px #bbb,
+				-3px -3px 6px -3px #bbb
+			);
+		}
+	}
+}
+	
+#tab-page{
+	width: 100vw;
+	padding: 2vw;
+
+	background-color: white;
+	@include box-shadow(0px -3px 3px .1px #eee);
+	
+	.tab-content{
+		display: none;	
+		&.open{
+			display: block;	
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	#tab-list{	
+		padding: 0;
+		@include flexbox((
+			display: flex,
+			flex-direction: column,
+			justify-content: flex-start
+		));
+		
+		.tab-title{
+			width: 100vw;
+			max-height: 100%;
+			margin: 0px;
+			padding: 0;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			font-size: 8vw;
+		}
+	}
+	
+	#tab-page{
+		padding: 5vw;
+		box-sizing: border-box;
+	}
+}
