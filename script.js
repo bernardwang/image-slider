@@ -18,51 +18,54 @@ var slideNext = function(images, index) {
 	images[nextIndex].className = IMAGE_SHOW_CLASS;
 };
 
+var initSlide = function(slider) {
+	//var slider = sliders[slideIndex];
+	var images = slider.children[0].children; // hardcoded, FIX LATER
+	
+	var nav = slider.children[1]; // hardcoded, FIX LATER
+	var navSpacing = nav.dataset.spacing; // get spacing from data attribute
+	var navLeft = nav.children[0];	// hardcoded, FIX LATER
+	var navRight = nav.children[2];	// hardcoded, FIX LATER
+	
+	if(navSpacing < 0 || navSpacing > images.length) {
+		console.log('Spacing attribute on slider is invalid');
+		navSpacing = images.length;
+	}
+	
+	for(var i = 0; i < images.length; i++) {
+		(function(index) {
+			// Create nav trigger
+			var trigger = document.createElement('li');
+			trigger.className = TRIGGER_CLASS;
+			trigger.addEventListener('click', function() {
+				slideTo(images,index);
+			});
+			
+			// Separate nav trigger lists
+			if(index < navSpacing){
+				navLeft.appendChild(trigger);
+			}
+			else{
+				navRight.appendChild(trigger);	
+			}
+			
+			// Next image on click
+			images[i].addEventListener('click', function() {
+				slideNext(images,index);
+			});
+		})(i);
+	}
+}
 
 /**
- *	Adds event listeners
+ *	Initalizes all elements with the slider class name
  *
  *	TODO: more robust, less assumptions
  */
 var init = function() {
 	var sliders = document.getElementsByClassName(SLIDER_CLASS);
-	for(var slideIndex = 0; slideIndex < sliders.length; slideIndex++) {
-		var slider = sliders[slideIndex];
-		var images = slider.children[0].children; // hardcoded, FIX LATER
-		
-		var nav = slider.children[1]; // hardcoded, FIX LATER
-		var navSpacing = nav.dataset.spacing; // get spacing from data attribute
-		var navLeft = nav.children[0];	// hardcoded, FIX LATER
-		var navRight = nav.children[2];	// hardcoded, FIX LATER
-		
-		if(navSpacing < 0 || navSpacing > images.length) {
-			console.log('Spacing attribute on slider is invalid');
-			navSpacing = images.length;
-		}
-		
-		for(var i = 0; i < images.length; i++) {
-			(function(index) {
-				// Create nav trigger
-				var trigger = document.createElement('li');
-				trigger.className = TRIGGER_CLASS;
-				trigger.addEventListener('click', function() {
-					slideTo(images,index);
-				});
-				
-				// Separate nav trigger lists
-				if(index < navSpacing){
-					navLeft.appendChild(trigger);
-				}
-				else{
-					navRight.appendChild(trigger);	
-				}
-				
-				// Next image on click
-				images[i].addEventListener('click', function() {
-					slideNext(images,index);
-				});
-			})(i);
-		}
+	for(var i = 0; i < sliders.length; i++) {
+		initSlide(sliders[i]);
 	}
 };
 
