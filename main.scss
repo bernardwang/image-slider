@@ -14,10 +14,10 @@ $highlight: #007ea1;
 
 @include keyframes(slide-out) {
 	0% { 
-		@include transform( translateX(100%) ); 
+		@include transform( translateX(0%) ); 
 	}
 	100% { 
-		@include transform( translateX(200%) ); 
+		@include transform( translateX(100%) ); 
 	}
 }
 
@@ -33,6 +33,7 @@ html, body{
 .slider{
 	width: 100vw;
 	height: 100%;
+	
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,
@@ -44,8 +45,11 @@ html, body{
 }
 
 .slider-gallery{
+	width: 500px; // change later, maybe set with js
+  height: 500px;
 	margin: 0;
 	position: relative;
+  overflow: hidden;
 }
 
 .slider-image{
@@ -53,15 +57,13 @@ html, body{
 	left: 0;
 	top: 0;
 	display: block;
-	opacity: 0;
 	
-	@include transition( opacity 0.5s ease-out );
-	@include animation( slide-out 1s forwards );
+	@include transition( opacity 0.75s linear ); // optional opacity
+	@include animation( slide-out 0.75s forwards );
 	
-	&.selected{
+	&.show{
+		@include animation( slide-in 0.75s forwards );
 		position: relative;
-		opacity: 1;
-		@include animation( slide-in 1s forwards );
 	}
 }
 
@@ -79,6 +81,11 @@ html, body{
 .slider-trigger{
 	margin: 0;
 	padding: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	border: 1px solid red;
+	background-color: red;
 }
 
 

@@ -34,36 +34,36 @@
 }
 @-moz-keyframes slide-out {
   0% {
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
+    -moz-transform: translateX(0%);
+    transform: translateX(0%);
   }
   100% {
-    -moz-transform: translateX(200%);
-    transform: translateX(200%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
   }
 }
 @-webkit-keyframes slide-out {
   0% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
   }
   100% {
-    -webkit-transform: translateX(200%);
-    transform: translateX(200%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
   }
 }
 @keyframes slide-out {
   0% {
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+  100% {
     -moz-transform: translateX(100%);
     -ms-transform: translateX(100%);
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
-  }
-  100% {
-    -moz-transform: translateX(200%);
-    -ms-transform: translateX(200%);
-    -webkit-transform: translateX(200%);
-    transform: translateX(200%);
   }
 }
 /* line 24, main.scss */
@@ -92,37 +92,38 @@ html, body {
   align-content: center;
 }
 
-/* line 46, main.scss */
+/* line 47, main.scss */
 .slider-gallery {
+  width: 500px;
+  height: 500px;
   margin: 0;
   position: relative;
+  overflow: hidden;
 }
 
-/* line 51, main.scss */
+/* line 55, main.scss */
 .slider-image {
   position: absolute;
   left: 0;
   top: 0;
   display: block;
-  opacity: 0;
-  -moz-transition: opacity 0.5s ease-out;
-  -o-transition: opacity 0.5s ease-out;
-  -webkit-transition: opacity 0.5s ease-out;
-  transition: opacity 0.5s ease-out;
-  -moz-animation: slide-out 1s forwards;
-  -webkit-animation: slide-out 1s forwards;
-  animation: slide-out 1s forwards;
+  -moz-transition: opacity 0.75s linear;
+  -o-transition: opacity 0.75s linear;
+  -webkit-transition: opacity 0.75s linear;
+  transition: opacity 0.75s linear;
+  -moz-animation: slide-out 0.75s forwards;
+  -webkit-animation: slide-out 0.75s forwards;
+  animation: slide-out 0.75s forwards;
 }
-/* line 61, main.scss */
-.slider-image.selected {
+/* line 64, main.scss */
+.slider-image.show {
+  -moz-animation: slide-in 0.75s forwards;
+  -webkit-animation: slide-in 0.75s forwards;
+  animation: slide-in 0.75s forwards;
   position: relative;
-  opacity: 1;
-  -moz-animation: slide-in 1s forwards;
-  -webkit-animation: slide-in 1s forwards;
-  animation: slide-in 1s forwards;
 }
 
-/* line 68, main.scss */
+/* line 70, main.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -137,13 +138,18 @@ html, body {
   align-content: center;
 }
 
-/* line 79, main.scss */
+/* line 81, main.scss */
 .slider-trigger {
   margin: 0;
   padding: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  border: 1px solid red;
+  background-color: red;
 }
 
-/* line 85, main.scss */
+/* line 92, main.scss */
 #tab-list {
   padding-top: 30px;
   padding-left: 2vw;
@@ -157,7 +163,7 @@ html, body {
   flex-direction: row;
   justify-content: flex-start;
 }
-/* line 96, main.scss */
+/* line 103, main.scss */
 #tab-list .tab-title {
   margin: 0px 2px 0px 2px;
   padding: 20px;
@@ -170,12 +176,12 @@ html, body {
   -webkit-transition: color 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
 }
-/* line 108, main.scss */
+/* line 115, main.scss */
 #tab-list .tab-title:hover, #tab-list .tab-title:focus {
   color: black;
   outline: none;
 }
-/* line 113, main.scss */
+/* line 120, main.scss */
 #tab-list .tab-title.open {
   color: black;
   background-color: white;
@@ -187,7 +193,7 @@ html, body {
   box-shadow: 3px -3px 6px -3px #bbb, -3px -3px 6px -3px #bbb;
 }
 
-/* line 127, main.scss */
+/* line 134, main.scss */
 #tab-page {
   width: 100vw;
   padding: 2vw;
@@ -196,17 +202,17 @@ html, body {
   -webkit-box-shadow: 0px -3px 3px 0.1px #eee;
   box-shadow: 0px -3px 3px 0.1px #eee;
 }
-/* line 134, main.scss */
+/* line 141, main.scss */
 #tab-page .tab-content {
   display: none;
 }
-/* line 136, main.scss */
+/* line 143, main.scss */
 #tab-page .tab-content.open {
   display: block;
 }
 
 @media (max-width: 500px) {
-  /* line 143, main.scss */
+  /* line 150, main.scss */
   #tab-list {
     padding: 0;
     display: -webkit-flex;
@@ -216,7 +222,7 @@ html, body {
     flex-direction: column;
     justify-content: flex-start;
   }
-  /* line 151, main.scss */
+  /* line 158, main.scss */
   #tab-list .tab-title {
     width: 100vw;
     max-height: 100%;
@@ -227,7 +233,7 @@ html, body {
     font-size: 8vw;
   }
 
-  /* line 162, main.scss */
+  /* line 169, main.scss */
   #tab-page {
     padding: 5vw;
     box-sizing: border-box;
