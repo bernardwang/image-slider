@@ -1,7 +1,7 @@
 @import 'compass/css3';
 
-$background: #f2f2f2;
-$highlight: #007ea1;
+$nav-type-color: black;
+$nav-trigger-color: black;
 
 @include keyframes(slide-in) {
 	0% { 
@@ -26,13 +26,14 @@ html, body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: $background;
+	background: #ccc;
 	font-family: Open Sans, Helvetica;
 }
 
 .slider{
 	width: 100vw;
 	height: 100%;
+	margin-top: 20px;
 	
 	@include flexbox((
     display: flex,
@@ -41,7 +42,6 @@ html, body{
 		justify-content: center,
 		align-content: center
   ));
-
 }
 
 .slider-gallery{
@@ -52,7 +52,7 @@ html, body{
   overflow: hidden;
 }
 
-.slider-image{
+.gallery-image{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -62,8 +62,8 @@ html, body{
 	@include animation( slide-out 0.75s forwards );
 	
 	&.show{
-		@include animation( slide-in 0.75s forwards );
 		position: relative;
+		@include animation( slide-in 0.75s forwards );
 	}
 }
 
@@ -78,105 +78,37 @@ html, body{
 		justify-content: center,
 		align-content: center
   ));
-	
-	ul{
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
 }
 
-.slider-trigger{
+.nav-list{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}	
+
+.nav-label{
+	font-size: 10px;
+	font-color: $nav-type-color;
+}
+
+.nav-spacing{
+	width: 1px;
+	height: 20px;
+	margin-right: 15px;
+	margin-top: auto;
+	background-color: $nav-trigger-color;
+}
+
+.nav-trigger{
 	width: 10px;
 	height: 10px;
-	margin: 6px;
+	margin-right: 15px;
 	padding: 0;
 	display: inline-block;
 	border-radius: 10px;
-	border: 1px solid red;
-	background-color: red;
-}
-
-
-#tab-list{	
-	padding-top: 30px;
-	padding-left: 2vw;
-	background-color: $background;
-	@include flexbox((
-    display: flex,
-		flex-wrap: nowrap,
-    flex-direction: row,
-		justify-content: flex-start
-  ));
-
-	.tab-title{
-
-		margin: 0px 2px 0px 2px;
-		padding: 20px;
-		font-size: 1.7vw;
-		text-align: center;
-		
-		color: $highlight;
-		background-color: $background;
-		
-		@include transition(color 0.3s ease-in-out);
-		
-		&:hover, &:focus {
-			color: black;
-			outline: none;
-		}
-		
-		&.open{
-			color: black;
-			background-color: white;
-			border-top: 3px solid $highlight;
-			border-top-left-radius: 3px;
-			border-top-right-radius: 3px;
-			@include box-shadow(
-				3px -3px 6px -3px #bbb,
-				-3px -3px 6px -3px #bbb
-			);
-		}
-	}
-}
-	
-#tab-page{
-	width: 100vw;
-	padding: 2vw;
-
-	background-color: white;
-	@include box-shadow(0px -3px 3px .1px #eee);
-	
-	.tab-content{
-		display: none;	
-		&.open{
-			display: block;	
-		}
-	}
+	background-color: $nav-trigger-color;
 }
 
 @media (max-width: 500px) {
-	#tab-list{	
-		padding: 0;
-		@include flexbox((
-			display: flex,
-			flex-direction: column,
-			justify-content: flex-start
-		));
-		
-		.tab-title{
-			width: 100vw;
-			max-height: 100%;
-			margin: 0px;
-			padding: 0;
-			padding-top: 20px;
-			padding-bottom: 20px;
-			font-size: 8vw;
-		}
-	}
 	
-	#tab-page{
-		padding: 5vw;
-		box-sizing: border-box;
-	}
 }
