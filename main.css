@@ -77,10 +77,7 @@ html, body {
 }
 
 /* line 33, main.scss */
-.slider {
-  width: 100vw;
-  height: 100%;
-  margin-top: 20px;
+main {
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
   -webkit-flex-direction: row;
@@ -93,8 +90,34 @@ html, body {
   align-content: center;
 }
 
-/* line 47, main.scss */
+/* line 43, main.scss */
+.slider {
+  width: 700px;
+  height: 100%;
+}
+
+/* line 48, main.scss */
+.slider {
+  position: relative;
+  display: -webkit-flex;
+  -webkit-flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: center;
+  -webkit-align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+/* line 59, main.scss */
 .slider-gallery {
+  position: relative;
+}
+
+/* line 63, main.scss */
+.gallery-wrapper {
   width: 500px;
   height: 500px;
   margin: 0;
@@ -102,7 +125,7 @@ html, body {
   overflow: hidden;
 }
 
-/* line 55, main.scss */
+/* line 71, main.scss */
 .gallery-image {
   position: absolute;
   left: 0;
@@ -116,7 +139,7 @@ html, body {
   -webkit-animation: slide-out 0.75s forwards;
   animation: slide-out 0.75s forwards;
 }
-/* line 64, main.scss */
+/* line 80, main.scss */
 .gallery-image.show {
   position: relative;
   -moz-animation: slide-in 0.75s forwards;
@@ -124,10 +147,26 @@ html, body {
   animation: slide-in 0.75s forwards;
 }
 
-/* line 70, main.scss */
+/* line 86, main.scss */
+.gallery-arrow {
+  position: absolute;
+  top: 45%;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+}
+/* line 93, main.scss */
+.gallery-arrow.next {
+  left: -20px;
+}
+/* line 96, main.scss */
+.gallery-arrow.prev {
+  right: -20px;
+}
+
+/* line 101, main.scss */
 .slider-nav {
   width: 100%;
-  margin: 20px;
   display: -webkit-flex;
   -webkit-flex-wrap: nowrap;
   -webkit-flex-direction: row;
@@ -140,20 +179,20 @@ html, body {
   align-content: center;
 }
 
-/* line 83, main.scss */
+/* line 112, main.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 89, main.scss */
+/* line 118, main.scss */
 .nav-label {
   font-size: 10px;
   font-color: black;
 }
 
-/* line 94, main.scss */
+/* line 123, main.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -162,7 +201,7 @@ html, body {
   background-color: black;
 }
 
-/* line 102, main.scss */
+/* line 131, main.scss */
 .nav-trigger {
   width: 10px;
   height: 10px;

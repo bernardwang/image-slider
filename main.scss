@@ -30,11 +30,23 @@ html, body{
 	font-family: Open Sans, Helvetica;
 }
 
+main{
+	@include flexbox((
+    display: flex,
+		flex-wrap: wrap,
+    flex-direction: row,
+		justify-content: center,
+		align-content: center
+  ));
+}
+
 .slider{
-	width: 100vw;
+	width: 700px;
 	height: 100%;
-	margin-top: 20px;
-	
+}
+
+.slider{
+	position: relative;
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,
@@ -45,6 +57,10 @@ html, body{
 }
 
 .slider-gallery{
+	position: relative;
+}
+
+.gallery-wrapper{
 	width: 500px; // change later, maybe set with js
   height: 500px;
 	margin: 0;
@@ -67,10 +83,23 @@ html, body{
 	}
 }
 
+.gallery-arrow{
+	position: absolute;
+	top: 45%;		// does not consider arrow size, change to calc eventually
+	width: 20px;
+	height: 20px;
+	background-color: black;
+
+	&.next{
+		left: -20px;
+	}
+	&.prev{
+		right: -20px;
+	}
+}
+
 .slider-nav{
 	width: 100%;
-	margin: 20px;
-	
 	@include flexbox((
     display: flex,
 		flex-wrap: nowrap,
