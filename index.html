@@ -1,59 +1,65 @@
 <!doctype html>
 <html lang='en-us'>
-  <head>
-    <meta charset='utf-8'>
-    <title>Slider</title>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href='main.css' rel='stylesheet'>
-		<script src="jquery-1.11.3.min.js"></script>
-  </head>
-  <body>
-		<main>
-			<div class='slider'>
-				<figure class='slider-gallery'>
-					<img class='gallery-image show' src='dog1.jpg'/>
-					<img class='gallery-image' src='dog2.jpg'/>
-					<img class='gallery-image' src='dog3.jpg'/>
-					<img class='gallery-image' src='dog4.jpg'/>
-					<img class='gallery-image' src='dog1.jpg'/>
-					<img class='gallery-image' src='dog2.jpg'/>
-					<img class='gallery-image' src='dog3.jpg'/>
-					<img class='gallery-image' src='dog4.jpg'/>
-				</figure>
-				<nav class='slider-nav' data-spacing='3'>
-					<ul class='nav-list'>
-						<div class='nav-label'> Final Designs </div>
-					</ul>
-					<div class='nav-spacing'></div>
-					<ul class='nav-list'>
-						<div class='nav-label'> Process Work </div>
-					</ul>
-				</nav>
-			</div>
-			
-			<div class='slider'>
-				<figure class='slider-gallery'>
-					<img class='gallery-image show' src='dog1.jpg'/>
-					<img class='gallery-image' src='dog2.jpg'/>
-					<img class='gallery-image' src='dog3.jpg'/>
-					<img class='gallery-image' src='dog4.jpg'/>
-					<img class='gallery-image' src='dog1.jpg'/>
-					<img class='gallery-image' src='dog2.jpg'/>
-					<img class='gallery-image' src='dog3.jpg'/>
-					<img class='gallery-image' src='dog4.jpg'/>
-				</figure>
-				<nav class='slider-nav' data-spacing='5'>
-					<ul class='nav-list'>
-						<div class='nav-label'> Final Designs </div>
-					</ul>
-					<div class='nav-spacing'></div>
-					<ul class='nav-list'>
-						<div class='nav-label'> Process Work </div>
-					</ul>
-				</nav>
-			</div>
-		</main>
-		<script src='slider.js'></script>
-    <script src='script.js'></script>
-  </body>
+
+<head>
+	<meta charset='utf-8'>
+	<title>Slider</title>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='main.css' rel='stylesheet'>
+	<script src="jquery-1.11.3.min.js"></script>
+</head>
+
+<body>
+	<main>
+		<div class='slider'
+				 data-spacing='3'
+				 data-label1='Final Designs'
+				 data-label2='Process Work'>
+			<figure class='slider-gallery'>
+				<!--  IMAGES GO IN HERE -->
+				<img class='gallery-image show' src='dog1.jpg' />
+				<img class='gallery-image' src='dog2.jpg' />
+				<img class='gallery-image' src='dog3.jpg' />
+				<img class='gallery-image' src='dog4.jpg' />
+				<img class='gallery-image' src='dog1.jpg' />
+				<img class='gallery-image' src='dog2.jpg' />
+				<img class='gallery-image' src='dog3.jpg' />
+				<img class='gallery-image' src='dog4.jpg' />
+			</figure>
+		</div>
+		<div class='slider'
+				 data-spacing='5'
+				 data-label1='Finalasdfigns'
+				 data-label2='Process Work'>
+			<figure class='slider-gallery'>
+				<!--  IMAGES GO IN HERE -->
+				<img class='gallery-image show' src='dog1.jpg' />
+				<img class='gallery-image' src='dog2.jpg' />
+				<img class='gallery-image' src='dog3.jpg' />
+				<img class='gallery-image' src='dog4.jpg' />
+				<img class='gallery-image' src='dog1.jpg' />
+				<img class='gallery-image' src='dog2.jpg' />
+				<img class='gallery-image' src='dog3.jpg' />
+				<img class='gallery-image' src='dog4.jpg' />
+			</figure>
+		</div>
+		<div class='slider'
+				 data-spacing='5'
+				 data-label1='Finalasdfigns'
+				 data-label2='Process Work'>
+			<figure class='slider-gallery'>
+				<!--  IMAGES GO IN HERE -->
+				<img class='gallery-image show' src='dog1.jpg' />
+				<img class='gallery-image' src='dog2.jpg' />
+				<img class='gallery-image' src='dog3.jpg' />
+
+			</figure>
+		</div>
+
+		</div>
+	</main>
+	<script src='slider.js'></script>
+	<script src='script.js'></script>
+</body>
+
 </html>
