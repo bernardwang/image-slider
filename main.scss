@@ -75,12 +75,15 @@ main{
 	top: 0;
 	display: block;
 	
-	@include transition( opacity 0.5s linear ); // optional opacity
-	@include animation( slide-out 0.5s forwards );
+	@include transition( opacity .5s linear ); // optional opacity
+	opacity: 0;
+	//@include transform( translateX(100%) );	// default is off screen
+	//@include animation( slide-out 0.5s forwards );
 	
-	&.selected{
+	&.select{
 		position: relative;
-		@include animation( slide-in 0.5s forwards );
+		opacity: 1;
+		//@include animation( slide-in 0.5s forwards );
 	}
 }
 
@@ -138,7 +141,7 @@ main{
 	border-radius: 10px;
 	background-color: $nav-color;
 
-	&.selected{
+	&.select{
 		background-color: $nav-selected-color;
 	}
 }

@@ -135,19 +135,15 @@ main {
   -o-transition: opacity 0.5s linear;
   -webkit-transition: opacity 0.5s linear;
   transition: opacity 0.5s linear;
-  -moz-animation: slide-out 0.5s forwards;
-  -webkit-animation: slide-out 0.5s forwards;
-  animation: slide-out 0.5s forwards;
+  opacity: 0;
 }
-/* line 81, main.scss */
-.gallery-image.selected {
+/* line 83, main.scss */
+.gallery-image.select {
   position: relative;
-  -moz-animation: slide-in 0.5s forwards;
-  -webkit-animation: slide-in 0.5s forwards;
-  animation: slide-in 0.5s forwards;
+  opacity: 1;
 }
 
-/* line 87, main.scss */
+/* line 90, main.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
@@ -155,16 +151,16 @@ main {
   height: 20px;
   background-color: black;
 }
-/* line 94, main.scss */
+/* line 97, main.scss */
 .gallery-arrow.next {
   right: -20px;
 }
-/* line 97, main.scss */
+/* line 100, main.scss */
 .gallery-arrow.prev {
   left: -20px;
 }
 
-/* line 102, main.scss */
+/* line 105, main.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -179,20 +175,20 @@ main {
   align-content: center;
 }
 
-/* line 113, main.scss */
+/* line 116, main.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 119, main.scss */
+/* line 122, main.scss */
 .nav-label {
   font-size: 10px;
   color: grey;
 }
 
-/* line 124, main.scss */
+/* line 127, main.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -201,7 +197,7 @@ main {
   background-color: grey;
 }
 
-/* line 132, main.scss */
+/* line 135, main.scss */
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -211,7 +207,7 @@ main {
   border-radius: 10px;
   background-color: grey;
 }
-/* line 141, main.scss */
-.nav-dot.selected {
+/* line 144, main.scss */
+.nav-dot.select {
   background-color: black;
 }

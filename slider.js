@@ -17,18 +17,21 @@ var Slider = function () {
 	// Element class name constants
 	var CLASSNAME = {
 		IMAGE: 'gallery-image',
-		IMAGE_SELECTED: 'gallery-image selected',
+		IMAGE_SELECT: 'gallery-image select',
 		NAV: 'slider-nav',
 		LIST: 'nav-list',
 		LABEL: 'nav-label',
 		SPACING: 'nav-spacing',
 		DOT: 'nav-dot',
-		DOT_SELECTED: 'nav-dot selected'
+		DOT_SELECTED: 'nav-dot select'
 	};
 
+	/**
+	 *	Animates image
+	 */
 	var updateImage = function (index) {
 		images[currIndex].className = CLASSNAME.IMAGE;
-		images[index].className = CLASSNAME.IMAGE_SELECTED;
+		images[index].className = CLASSNAME.IMAGE_SELECT;
 	}
 
 	/**
@@ -56,6 +59,9 @@ var Slider = function () {
 		}
 	};
 
+	/**
+	 *	Updates image and nav dots
+	 */
 	var update = function (index) {
 		updateImage(index);
 		updateNav(index);
