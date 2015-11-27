@@ -5,7 +5,6 @@
 var Slider = function () {
 
 	var currIndex = 0;
-			var updateEvent = new Event('update');
 
 	var gallery; // Slider gallery element
 	var images; // Gallery image elements
@@ -23,8 +22,8 @@ var Slider = function () {
 		LIST: 'nav-list',
 		LABEL: 'nav-label',
 		SPACING: 'nav-spacing',
-		TRIGGER: 'nav-trigger',
-		TRIGGER_SELECTED: 'nav-trigger selected'
+		DOT: 'nav-dot',
+		DOT_SELECTED: 'nav-dot selected'
 	};
 
 	var updateImage = function (index) {
@@ -33,28 +32,27 @@ var Slider = function () {
 	}
 
 	/**
-	 *
+	 *	Selects a new nav
 	 */
 	var updateNav = function (index) {
-		/*if (index < 0 || index >= images.length) {
+		if (index < 0 || index >= images.length) {
 			console.log('Invalid index out of bounds');
 			return;
 		}
-		nav.dispatchEvent(updateEvent);*/
 
 		var navList1 = nav.children[0];
 		var navList2 = nav.children[2];
 
+		// Update dot in correct list
 		if (currIndex < spacing) {
-			navList1.children[currIndex + 1].className = CLASSNAME.TRIGGER;
+			navList1.children[currIndex + 1].className = CLASSNAME.DOT;
 		} else {
-			navList2.children[currIndex + 1 - spacing].className = CLASSNAME.TRIGGER;
+			navList2.children[currIndex - spacing + 1].className = CLASSNAME.DOT;
 		}
-
 		if (index < spacing) {
-			navList1.children[index + 1].className = CLASSNAME.TRIGGER_SELECTED;
+			navList1.children[index + 1].className = CLASSNAME.DOT_SELECTED;
 		} else {
-			navList2.children[index + 1 - spacing].className = CLASSNAME.TRIGGER_SELECTED;
+			navList2.children[index - spacing + 1].className = CLASSNAME.DOT_SELECTED;
 		}
 	};
 
@@ -158,31 +156,27 @@ var Slider = function () {
 		gallery = slider.children[0];
 		images = gallery.children[0].children;
 		nav = createNav();
+		initArrows(); // Adds functionality to next and prev arrows
 
+		// Adds functionality to
 		for (var i = 0; i < images.length; i++) {
-			// Create nav trigger
-			var trigger = document.createElement('div');
-			trigger.className = CLASSNAME.TRIGGER;
+			// Create nav dot
+			var dot = document.createElement('div');
+			dot.className = CLASSNAME.DOT;
 			(function (index) {
-				trigger.addEventListener('click', function () {
+				dot.addEventListener('click', function () {
 					slideTo(index);
 				});
-				/*trigger.addEventListener('update', function () {
-					if (index == currIndex) {
-						trigger.className = CLASSNAME.TRIGGER_SELECTED;
-					} else {
-						trigger.className = CLASSNAME.TRIGGER;
-					}
-				}, true);*/
 			})(i);
 
 			// Add to appropriate nav list
 			// hardcoded to account for spacer, FIX LATER
 			if (i < spacing) {
-				nav.children[0].appendChild(trigger);
+				nav.children[0].appendChild(dot);
 			} else {
-				nav.children[2].appendChild(trigger);
+				nav.children[2].appendChild(dot);
 			}
+
 			// Next image on click
 			images[i].addEventListener('click', function () {
 				slideNext();
@@ -190,7 +184,6 @@ var Slider = function () {
 		}
 
 		slider.appendChild(nav); // Adds nav to DOM
-		initArrows(); // Adds functionality to next and prev arrows
 		update(0); // Selects the first image
 	};
 
