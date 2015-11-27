@@ -5,9 +5,12 @@
 var Slider = function () {
 
 	var currIndex = 0;
+			var updateEvent = new Event('update');
 
 	var gallery; // Slider gallery element
 	var images; // Gallery image elements
+	var nav; // Nav element containing nav lists
+
 	var spacing; // Spacing for nav lists
 	var label1; // First nav list label
 	var label2; // Second nav list label
@@ -15,25 +18,61 @@ var Slider = function () {
 	// Element class name constants
 	var CLASSNAME = {
 		IMAGE: 'gallery-image',
-		IMAGE_SHOW: 'gallery-image show',
+		IMAGE_SELECTED: 'gallery-image selected',
 		NAV: 'slider-nav',
 		LIST: 'nav-list',
 		LABEL: 'nav-label',
 		SPACING: 'nav-spacing',
-		TRIGGER: 'nav-trigger'
+		TRIGGER: 'nav-trigger',
+		TRIGGER_SELECTED: 'nav-trigger selected'
 	};
+
+	var updateImage = function (index) {
+		images[currIndex].className = CLASSNAME.IMAGE;
+		images[index].className = CLASSNAME.IMAGE_SELECTED;
+	}
+
+	/**
+	 *
+	 */
+	var updateNav = function (index) {
+		/*if (index < 0 || index >= images.length) {
+			console.log('Invalid index out of bounds');
+			return;
+		}
+		nav.dispatchEvent(updateEvent);*/
+
+		var navList1 = nav.children[0];
+		var navList2 = nav.children[2];
+
+		if (currIndex < spacing) {
+			navList1.children[currIndex + 1].className = CLASSNAME.TRIGGER;
+		} else {
+			navList2.children[currIndex + 1 - spacing].className = CLASSNAME.TRIGGER;
+		}
+
+		if (index < spacing) {
+			navList1.children[index + 1].className = CLASSNAME.TRIGGER_SELECTED;
+		} else {
+			navList2.children[index + 1 - spacing].className = CLASSNAME.TRIGGER_SELECTED;
+		}
+	};
+
+	var update = function (index) {
+		updateImage(index);
+		updateNav(index);
+		currIndex = index;
+	}
 
 	/**
 	 *	Advances a slider to a specified index
 	 */
 	var slideTo = function (index) {
 		if (index < 0 || index >= images.length) {
-			console.log('Slide advance out of bounds');
+			console.log('Invalid index out of bounds');
 			return;
 		}
-		images[currIndex].className = CLASSNAME.IMAGE;
-		images[index].className = CLASSNAME.IMAGE_SHOW;
-		currIndex = index;
+		update(index);
 	};
 
 	/**
@@ -42,9 +81,7 @@ var Slider = function () {
 	var slideNext = function () {
 		var num_images = images.length;
 		var nextIndex = (currIndex + 1) % num_images;
-		images[currIndex].className = CLASSNAME.IMAGE;
-		images[nextIndex].className = CLASSNAME.IMAGE_SHOW;
-		currIndex = nextIndex;
+		update(nextIndex);
 	};
 
 	/**
@@ -53,16 +90,25 @@ var Slider = function () {
 	var slidePrev = function () {
 		var num_images = images.length;
 		var prevIndex = ((currIndex - 1) + num_images) % num_images;
-		images[currIndex].className = CLASSNAME.IMAGE;
-		images[prevIndex].className = CLASSNAME.IMAGE_SHOW;
-		currIndex = prevIndex;
+		update(prevIndex);
+	};
+
+	var initArrows = function () {
+		var nextArrow = gallery.children[1];
+		var prevArrow = gallery.children[2];
+		nextArrow.addEventListener('click', function () {
+			slideNext();
+		});
+		prevArrow.addEventListener('click', function () {
+			slidePrev();
+		});
 	};
 
 	/**
 	 *	Initializes nav list
 	 */
 	var createNavList = function (text) {
-		var navList = document.createElement('ul');
+		var navList = document.createElement('div');
 		var navLabel = document.createElement('div');
 		var labelText = document.createTextNode(text);
 		navLabel.className = CLASSNAME.LABEL;
@@ -103,37 +149,31 @@ var Slider = function () {
 	 *	TODO: more robust, less assumptions
 	 */
 	var initSlide = function (slider) {
-
-		// Initialize instance variables
-		gallery = slider.children[0];
-		images = gallery.children[0].children;
-		var nextArrow = gallery.children[1];
-		var prevArrow = gallery.children[2];
-
 		// Slider data attributes
 		spacing = slider.dataset.spacing;
 		label1 = slider.dataset.label1;
 		label2 = slider.dataset.label2;
 
-		nextArrow.addEventListener('click', function () {
-			slideNext();
-		});
-
-		prevArrow.addEventListener('click', function () {
-			slidePrev();
-		});
-
-		// Get nav element
-		var nav = createNav();
+		// Initialize instance variables
+		gallery = slider.children[0];
+		images = gallery.children[0].children;
+		nav = createNav();
 
 		for (var i = 0; i < images.length; i++) {
 			// Create nav trigger
-			var trigger = document.createElement('li');
+			var trigger = document.createElement('div');
 			trigger.className = CLASSNAME.TRIGGER;
 			(function (index) {
 				trigger.addEventListener('click', function () {
 					slideTo(index);
 				});
+				/*trigger.addEventListener('update', function () {
+					if (index == currIndex) {
+						trigger.className = CLASSNAME.TRIGGER_SELECTED;
+					} else {
+						trigger.className = CLASSNAME.TRIGGER;
+					}
+				}, true);*/
 			})(i);
 
 			// Add to appropriate nav list
@@ -143,14 +183,15 @@ var Slider = function () {
 			} else {
 				nav.children[2].appendChild(trigger);
 			}
-
 			// Next image on click
 			images[i].addEventListener('click', function () {
 				slideNext();
 			});
 		}
 
-		slider.appendChild(nav);
+		slider.appendChild(nav); // Adds nav to DOM
+		initArrows(); // Adds functionality to next and prev arrows
+		update(0); // Selects the first image
 	};
 
 	/**

@@ -1,7 +1,8 @@
 @import 'compass/css3';
 
-$nav-type-color: black;
-$nav-trigger-color: black;
+$nav-font-color: grey;
+$nav-color: grey;
+$nav-selected-color: black;
 
 @include keyframes(slide-in) {
 	0% { 
@@ -26,7 +27,7 @@ html, body{
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background: #ccc;
+	background: #ddd;
 	font-family: Open Sans, Helvetica;
 }
 
@@ -74,12 +75,12 @@ main{
 	top: 0;
 	display: block;
 	
-	@include transition( opacity 0.75s linear ); // optional opacity
-	@include animation( slide-out 0.75s forwards );
+	@include transition( opacity 0.5s linear ); // optional opacity
+	@include animation( slide-out 0.5s forwards );
 	
-	&.show{
+	&.selected{
 		position: relative;
-		@include animation( slide-in 0.75s forwards );
+		@include animation( slide-in 0.5s forwards );
 	}
 }
 
@@ -117,7 +118,7 @@ main{
 
 .nav-label{
 	font-size: 10px;
-	font-color: $nav-type-color;
+	color: $nav-font-color;
 }
 
 .nav-spacing{
@@ -125,7 +126,7 @@ main{
 	height: 20px;
 	margin-right: 15px;
 	margin-top: auto;
-	background-color: $nav-trigger-color;
+	background-color: $nav-color;
 }
 
 .nav-trigger{
@@ -135,7 +136,11 @@ main{
 	padding: 0;
 	display: inline-block;
 	border-radius: 10px;
-	background-color: $nav-trigger-color;
+	background-color: $nav-color;
+
+	&.selected{
+		background-color: $nav-selected-color;
+	}
 }
 
 @media (max-width: 500px) {
