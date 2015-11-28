@@ -47,7 +47,7 @@ main{
 }
 
 .slider{
-	position: relative;
+
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,
@@ -65,26 +65,21 @@ main{
 	width: 500px; // change later, maybe set with js
   height: 500px;
 	margin: 0;
-	position: relative;
   overflow: hidden;
+	
+	ul{
+		margin: 0;
+		padding: 0;
+		width: 400%;
+	}
+	
+	li {
+		list-style: none;
+	}
 }
 
 .gallery-image{
-	position: absolute;
-	left: 0;
-	top: 0;
-	display: block;
-	
-	@include transition( opacity .5s linear ); // optional opacity
-	opacity: 0;
-	//@include transform( translateX(100%) );	// default is off screen
-	//@include animation( slide-out 0.5s forwards );
-	
-	&.select{
-		position: relative;
-		opacity: 1;
-		//@include animation( slide-in 0.5s forwards );
-	}
+	float: left;
 }
 
 .gallery-arrow{

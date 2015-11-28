@@ -98,7 +98,6 @@ main {
 
 /* line 49, main.scss */
 .slider {
-  position: relative;
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
   -webkit-flex-direction: row;
@@ -121,29 +120,25 @@ main {
   width: 500px;
   height: 500px;
   margin: 0;
-  position: relative;
   overflow: hidden;
 }
+/* line 70, main.scss */
+.gallery-wrapper ul {
+  margin: 0;
+  padding: 0;
+  width: 400%;
+}
+/* line 76, main.scss */
+.gallery-wrapper li {
+  list-style: none;
+}
 
-/* line 72, main.scss */
+/* line 81, main.scss */
 .gallery-image {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  -moz-transition: opacity 0.5s linear;
-  -o-transition: opacity 0.5s linear;
-  -webkit-transition: opacity 0.5s linear;
-  transition: opacity 0.5s linear;
-  opacity: 0;
-}
-/* line 83, main.scss */
-.gallery-image.select {
-  position: relative;
-  opacity: 1;
+  float: left;
 }
 
-/* line 90, main.scss */
+/* line 85, main.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
@@ -151,16 +146,16 @@ main {
   height: 20px;
   background-color: black;
 }
-/* line 97, main.scss */
+/* line 92, main.scss */
 .gallery-arrow.next {
   right: -20px;
 }
-/* line 100, main.scss */
+/* line 95, main.scss */
 .gallery-arrow.prev {
   left: -20px;
 }
 
-/* line 105, main.scss */
+/* line 100, main.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -175,20 +170,20 @@ main {
   align-content: center;
 }
 
-/* line 116, main.scss */
+/* line 111, main.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 122, main.scss */
+/* line 117, main.scss */
 .nav-label {
   font-size: 10px;
   color: grey;
 }
 
-/* line 127, main.scss */
+/* line 122, main.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -197,7 +192,7 @@ main {
   background-color: grey;
 }
 
-/* line 135, main.scss */
+/* line 130, main.scss */
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -207,7 +202,7 @@ main {
   border-radius: 10px;
   background-color: grey;
 }
-/* line 144, main.scss */
+/* line 139, main.scss */
 .nav-dot.select {
   background-color: black;
 }

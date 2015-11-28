@@ -16,8 +16,6 @@ var Slider = function () {
 
 	// Element class name constants
 	var CLASSNAME = {
-		IMAGE: 'gallery-image',
-		IMAGE_SELECT: 'gallery-image select',
 		NAV: 'slider-nav',
 		LIST: 'nav-list',
 		LABEL: 'nav-label',
@@ -29,16 +27,16 @@ var Slider = function () {
 	/**
 	 *	Animates image
 	 */
-	var updateImage = function (index) {
-		images[currIndex].className = CLASSNAME.IMAGE;
-		images[index].className = CLASSNAME.IMAGE_SELECT;
+	var updateImage = function (newIndex) {
+		var position = -500 * newIndex + 'px';
+		Velocity(images[0].parentElement, { translateX: position }, 500);
 	}
 
 	/**
 	 *	Selects a new nav
 	 */
-	var updateNav = function (index) {
-		if (index < 0 || index >= images.length) {
+	var updateNav = function (newIndex) {
+		if (newIndex < 0 || newIndex >= images.length) {
 			console.log('Invalid index out of bounds');
 			return;
 		}
@@ -52,59 +50,38 @@ var Slider = function () {
 		} else {
 			navList2.children[currIndex - spacing + 1].className = CLASSNAME.DOT;
 		}
-		if (index < spacing) {
-			navList1.children[index + 1].className = CLASSNAME.DOT_SELECTED;
+		if (newIndex < spacing) {
+			navList1.children[newIndex + 1].className = CLASSNAME.DOT_SELECTED;
 		} else {
-			navList2.children[index - spacing + 1].className = CLASSNAME.DOT_SELECTED;
+			navList2.children[newIndex - spacing + 1].className = CLASSNAME.DOT_SELECTED;
 		}
 	};
 
 	/**
 	 *	Updates image and nav dots
 	 */
-	var update = function (index) {
-		updateImage(index);
-		updateNav(index);
-		currIndex = index;
-	}
-
-	/**
-	 *	Advances a slider to a specified index
-	 */
-	var slideTo = function (index) {
-		if (index < 0 || index >= images.length) {
-			console.log('Invalid index out of bounds');
+	var update = function (newIndex) {
+		if (newIndex < 0 || newIndex >= images.length) {
+			console.log('Invalid index, out of bounds');
 			return;
 		}
-		update(index);
-	};
 
-	/**
-	 *	Advances a slider to the next image
-	 */
-	var slideNext = function () {
-		var num_images = images.length;
-		var nextIndex = (currIndex + 1) % num_images;
-		update(nextIndex);
-	};
-
-	/**
-	 *	Advances a slider to the prev image
-	 */
-	var slidePrev = function () {
-		var num_images = images.length;
-		var prevIndex = ((currIndex - 1) + num_images) % num_images;
-		update(prevIndex);
-	};
+		updateImage(newIndex);
+		updateNav(newIndex);
+		currIndex = newIndex;
+	}
 
 	var initArrows = function () {
+		var numImages = images.length;
 		var nextArrow = gallery.children[1];
 		var prevArrow = gallery.children[2];
 		nextArrow.addEventListener('click', function () {
-			slideNext();
+			var nextIndex = (currIndex + 1) % numImages;
+			update(nextIndex);
 		});
 		prevArrow.addEventListener('click', function () {
-			slidePrev();
+			var prevIndex = ((currIndex - 1) + numImages) % numImages;
+			update(prevIndex);
 		});
 	};
 
@@ -160,7 +137,7 @@ var Slider = function () {
 
 		// Initialize instance variables
 		gallery = slider.children[0];
-		images = gallery.children[0].children;
+		images = gallery.children[0].children[0].children;
 		nav = createNav();
 		initArrows(); // Adds functionality to next and prev arrows
 
@@ -171,7 +148,7 @@ var Slider = function () {
 			dot.className = CLASSNAME.DOT;
 			(function (index) {
 				dot.addEventListener('click', function () {
-					slideTo(index);
+					update(index);
 				});
 			})(i);
 
@@ -185,7 +162,8 @@ var Slider = function () {
 
 			// Next image on click
 			images[i].addEventListener('click', function () {
-				slideNext();
+				var nextIndex = (currIndex + 1) % images.length;
+				update(nextIndex);
 			});
 		}
 
