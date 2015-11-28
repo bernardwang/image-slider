@@ -4,24 +4,6 @@ $nav-font-color: grey;
 $nav-color: grey;
 $nav-selected-color: black;
 
-@include keyframes(slide-in) {
-	0% { 
-		@include transform( translateX(-100%) ); 
-	}
-	100% { 
-		@include transform( translateX(0%) );
-	}
-}
-
-@include keyframes(slide-out) {
-	0% { 
-		@include transform( translateX(0%) ); 
-	}
-	100% { 
-		@include transform( translateX(100%) ); 
-	}
-}
-
 html, body{
 	width: 100%;
 	height: 100%;
@@ -42,7 +24,7 @@ main{
 }
 
 .slider{
-	width: 700px;
+	width: 100%;
 	height: 100%;
 }
 
@@ -67,19 +49,15 @@ main{
 	margin: 0;
   overflow: hidden;
 	
-	ul{
+	.gallery-holder{
 		margin: 0;
 		padding: 0;
 		width: 400%;
 	}
 	
-	li {
-		list-style: none;
+	.gallery-image{
+		float: left;
 	}
-}
-
-.gallery-image{
-	float: left;
 }
 
 .gallery-arrow{

@@ -1,72 +1,4 @@
-@-moz-keyframes slide-in {
-  0% {
-    -moz-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-  100% {
-    -moz-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-}
-@-webkit-keyframes slide-in {
-  0% {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-  100% {
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-}
-@keyframes slide-in {
-  0% {
-    -moz-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
-  100% {
-    -moz-transform: translateX(0%);
-    -ms-transform: translateX(0%);
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-}
-@-moz-keyframes slide-out {
-  0% {
-    -moz-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-  100% {
-    -moz-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-}
-@-webkit-keyframes slide-out {
-  0% {
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-  100% {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-}
-@keyframes slide-out {
-  0% {
-    -moz-transform: translateX(0%);
-    -ms-transform: translateX(0%);
-    -webkit-transform: translateX(0%);
-    transform: translateX(0%);
-  }
-  100% {
-    -moz-transform: translateX(100%);
-    -ms-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-}
-/* line 25, main.scss */
+/* line 7, main.scss */
 html, body {
   width: 100%;
   height: 100%;
@@ -76,7 +8,7 @@ html, body {
   font-family: Open Sans, Helvetica;
 }
 
-/* line 34, main.scss */
+/* line 16, main.scss */
 main {
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
@@ -90,13 +22,13 @@ main {
   align-content: center;
 }
 
-/* line 44, main.scss */
+/* line 26, main.scss */
 .slider {
-  width: 700px;
+  width: 100%;
   height: 100%;
 }
 
-/* line 49, main.scss */
+/* line 31, main.scss */
 .slider {
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
@@ -110,35 +42,30 @@ main {
   align-content: center;
 }
 
-/* line 60, main.scss */
+/* line 42, main.scss */
 .slider-gallery {
   position: relative;
 }
 
-/* line 64, main.scss */
+/* line 46, main.scss */
 .gallery-wrapper {
   width: 500px;
   height: 500px;
   margin: 0;
   overflow: hidden;
 }
-/* line 70, main.scss */
-.gallery-wrapper ul {
+/* line 52, main.scss */
+.gallery-wrapper .gallery-holder {
   margin: 0;
   padding: 0;
   width: 400%;
 }
-/* line 76, main.scss */
-.gallery-wrapper li {
-  list-style: none;
-}
-
-/* line 81, main.scss */
-.gallery-image {
+/* line 58, main.scss */
+.gallery-wrapper .gallery-image {
   float: left;
 }
 
-/* line 85, main.scss */
+/* line 63, main.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
@@ -146,16 +73,16 @@ main {
   height: 20px;
   background-color: black;
 }
-/* line 92, main.scss */
+/* line 70, main.scss */
 .gallery-arrow.next {
   right: -20px;
 }
-/* line 95, main.scss */
+/* line 73, main.scss */
 .gallery-arrow.prev {
   left: -20px;
 }
 
-/* line 100, main.scss */
+/* line 78, main.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -170,20 +97,20 @@ main {
   align-content: center;
 }
 
-/* line 111, main.scss */
+/* line 89, main.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 117, main.scss */
+/* line 95, main.scss */
 .nav-label {
   font-size: 10px;
   color: grey;
 }
 
-/* line 122, main.scss */
+/* line 100, main.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -192,7 +119,7 @@ main {
   background-color: grey;
 }
 
-/* line 130, main.scss */
+/* line 108, main.scss */
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -202,7 +129,7 @@ main {
   border-radius: 10px;
   background-color: grey;
 }
-/* line 139, main.scss */
+/* line 117, main.scss */
 .nav-dot.select {
   background-color: black;
 }
