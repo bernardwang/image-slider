@@ -189,15 +189,27 @@ var Slider = function () {
 	};
 
 	/**
-	 *	Populates DOM with gallery and nav, adds event listeners
+	 *	Gets and removes config variables from data attributes
 	 */
-	var initSlide = function (slider) {
-		// Slider data attributes
+	var initConfig = function (slider) {
 		config.spacing = slider.dataset.spacing;
 		config.label1 = slider.dataset.label1;
 		config.label2 = slider.dataset.label2;
 		config.width = slider.dataset.width;
 		config.height = slider.dataset.height;
+		slider.removeAttribute('data-spacing');
+		slider.removeAttribute('data-label1');
+		slider.removeAttribute('data-label2');
+		slider.removeAttribute('data-width');
+		slider.removeAttribute('data-height');
+	};
+
+	/**
+	 *	Populates DOM with gallery and nav, adds event listeners
+	 */
+	var initSlide = function (slider) {
+
+		initConfig(slider);
 		numImages = slider.children.length;
 
 		// Move images to fragment
