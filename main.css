@@ -58,9 +58,10 @@ main {
 .gallery-wrapper .gallery-holder {
   display: inline-flex;
 }
-/* line 55, main.scss */
+/* line 54, main.scss */
 .gallery-wrapper .gallery-image {
   float: left;
+  display: none;
 }
 
 /* line 60, main.scss */

@@ -51,9 +51,9 @@ main{
 	.gallery-holder{
 		display: inline-flex;
 	}
-	
 	.gallery-image{
 		float: left;
+		display: none;
 	}
 }
 

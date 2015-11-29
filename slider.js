@@ -134,7 +134,6 @@ var Slider = function () {
 			nav.appendChild(navSpacing);
 			nav.appendChild(createNavList(config.label2));
 		} else {
-			console.log('Spacing attribute on slider is invalid');
 			config.spacing = numImages;
 		}
 	};
@@ -209,6 +208,9 @@ var Slider = function () {
 				var nextIndex = (currIndex + 1) % numImages;
 				update(nextIndex);
 			});
+
+			// Show images
+			images[i].style.display = 'block';
 		}
 
 		slider.appendChild(gallery);
