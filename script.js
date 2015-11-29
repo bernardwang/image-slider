@@ -6,9 +6,9 @@ var init = function() {
 	var elements = document.getElementsByClassName('slider');
 
 	for(var i = 0; i < elements.length; i++) {
-		var slider = Slider();	// Create new Slider object
+		var slider = Slider();		// Create new Slider object
 		slider.init(elements[i]);	// Initialize it with HTML element
-		sliders.push(slider);	// Save the Slider object
+		sliders.push(slider);			// Save the Slider objects
 	}
 
 	// for testing loop

@@ -8,14 +8,19 @@ var Slider = function () {
 	var numImages = 0;
 	var timer = 0;
 
-	var gallery; // Slider gallery element
-	var images; // Gallery image elements
-	var nav; // Nav element containing nav lists
+	var gallery; 	// Slider gallery element
+	var images; 	// Gallery image elements
+	var nav; 			// Nav element containing nav lists
 
+	// Options
 	var config = {
-		spacing		: 0,
-		label1		: '',
-		label2		: ''
+		spacing		: 0,		// Where size of nav lists
+		label1		: '',		// First nav list name
+		label2		: '',		// Second nav list name
+		width			: '',		// Gallery width
+		height		: '',		// Gallery height
+		slide			: 500,	// Slide transition duration
+		loop			: 5000	// Loop duration
 	}
 
 	// Element class name constants
@@ -38,8 +43,8 @@ var Slider = function () {
 	 */
 	var updateImage = function (newIndex) {
 		var holder = images[0].parentElement; // Parent div of images
-		var position = -500 * newIndex + 'px';
-		Velocity(holder, { translateX: position }, 500); // ANIMATION
+		var position = -(config.width) * newIndex + 'px';
+		Velocity(holder, { translateX: position }, config.slide);
 	};
 
 	/**
@@ -80,7 +85,6 @@ var Slider = function () {
 		currIndex = newIndex;
 
 		if(!loop && timer != 0) { // resets timer if from mouse click
-			stopLoop();
 			startLoop();
 		}
 	};
@@ -155,18 +159,25 @@ var Slider = function () {
 		wrapper.appendChild(holder);
 		holder.appendChild(imageFrag);
 
-		images = holder.children;	// Sets image array
-		initArrows(); // Binds listeners to arrows
+		initArrows(); 														// Binds listeners to arrows
+		images = holder.children;									// Sets image array
+		if(!config.width || !config.height) {			// If size not specified, set to first image size
+			config.width = images[0].width;
+			config.height = images[0].height;
+		}
+		wrapper.style.width = config.width+'px';	// Set gallery to correct size
+		wrapper.style.height = config.height+'px';
 	};
 
 	/**
 	 *	Sets interval for slide advance
 	 */
 	var startLoop = function () {
+		stopLoop();
 		timer = setInterval(function () {
 			var nextIndex = (currIndex + 1) % numImages;
 			update(nextIndex,true);
-		}, 5000);
+		}, config.loop);
 	};
 
 	/**
@@ -185,6 +196,8 @@ var Slider = function () {
 		config.spacing = slider.dataset.spacing;
 		config.label1 = slider.dataset.label1;
 		config.label2 = slider.dataset.label2;
+		config.width = slider.dataset.width;
+		config.height = slider.dataset.height;
 		numImages = slider.children.length;
 
 		// Move images to fragment
