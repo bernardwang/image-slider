@@ -5,9 +5,9 @@
 var Slider = function () {
 
 	var currIndex = 0;
+	var numImages = 0;
 
 	var gallery; // Slider gallery element
-	var holder; // Gallery image holder
 	var images; // Gallery image elements
 	var nav; // Nav element containing nav lists
 
@@ -32,22 +32,23 @@ var Slider = function () {
 
 	/**
 	 *	Animates image
-	 *//*
+	 */
 	var updateImage = function (newIndex) {
+		var holder = images[0].parentElement; // Parent div of images
 		var position = -500 * newIndex + 'px';
-		Velocity(holder, { translateX: position }, 500);
-	}*/
+		Velocity(holder, { translateX: position }, 500); // ANIMATION
+	}
 
 	/**
 	 *	Selects a new nav
 	 */
-	/*var updateNav = function (newIndex) {
-		if (newIndex < 0 || newIndex >= images.length) {
+	var updateNav = function (newIndex) {
+		if (newIndex < 0 || newIndex >= numImages) {
 			console.log('Invalid index out of bounds');
 			return;
 		}
 
-		var navList1 = nav.children[0];
+		var navList1 = nav.children[0];	// hardcoded, FIX LATER
 		var navList2 = nav.children[2];
 
 		// Update dot in correct list
@@ -61,23 +62,22 @@ var Slider = function () {
 		} else {
 			navList2.children[newIndex - spacing + 1].className = CLASSNAME.DOT_SELECTED;
 		}
-	};*/
+	};
 
 	/**
 	 *	Updates image and nav dots
 	 */
 	var update = function (newIndex) {
-		/*if (newIndex < 0 || newIndex >= images.length) {
+		if (newIndex < 0 || newIndex >= numImages) {
 			console.log('Invalid index, out of bounds');
 			return;
 		}
 		updateImage(newIndex);
 		updateNav(newIndex);
-		currIndex = newIndex;*/
+		currIndex = newIndex;
 	}
 
 	var initArrows = function () {
-		/*var numImages = images.length;
 		var nextArrow = gallery.children[1];
 		var prevArrow = gallery.children[2];
 		nextArrow.addEventListener('click', function () {
@@ -87,8 +87,17 @@ var Slider = function () {
 		prevArrow.addEventListener('click', function () {
 			var prevIndex = ((currIndex - 1) + numImages) % numImages;
 			update(prevIndex);
-		});*/
+		});
 	};
+
+	var createNavDot = function (index) {
+		var dot = document.createElement('div');
+		dot.className = CLASSNAME.DOT;
+		dot.addEventListener('click', function () {
+			update(index);
+		});
+		return dot;
+	}
 
 	/**
 	 *	Initializes nav list
@@ -108,34 +117,32 @@ var Slider = function () {
 	 *	Initializes nav
 	 */
 	var createNav = function () {
-		var nav = document.createElement('nav');
+		nav = document.createElement('nav');
 		nav.className = CLASSNAME.NAV;
-
-		// Append first list
-		nav.appendChild(createNavList(label1));
+		nav.appendChild(createNavList(label1)); // Append first list
 
 		// Valid spacing attribute, append spacer div and second list
 		// Otherwise only use first list
-		if (spacing > 0 && spacing < images.length) {
+		if (spacing > 0 && spacing < numImages) {
 			var navSpacing = document.createElement('div');
 			navSpacing.className = CLASSNAME.SPACING;
 			nav.appendChild(navSpacing);
 			nav.appendChild(createNavList(label2));
 		} else {
 			console.log('Spacing attribute on slider is invalid');
-			spacing = images.length;
+			spacing = numImages;
 		}
-
-		return nav;
 	};
 
 	/**
 	 *	Initializes Gallery
+	 *
+	 *	TODO: use template? something less ugly than this
 	 */
 	var createGallery = function (imageFrag) {
 		gallery = document.createElement('div');
 		var wrapper = document.createElement('div');
-		holder = document.createElement('div');
+		var holder = document.createElement('div');
 		var next = document.createElement('div');
 		var prev = document.createElement('div');
 		gallery.className = CLASSNAME.GALLERY;
@@ -143,69 +150,51 @@ var Slider = function () {
 		holder.className = CLASSNAME.HOLDER;
 		next.className = CLASSNAME.ARROW_NEXT;
 		prev.className = CLASSNAME.ARROW_PREV;
-
 		gallery.appendChild(wrapper);
 		gallery.appendChild(next);
 		gallery.appendChild(prev);
 		wrapper.appendChild(holder);
 		holder.appendChild(imageFrag);
-		images = holder.children;
 
-		initArrows();
-		return gallery;
+		images = holder.children;	// Sets image array
+		initArrows(); // Binds listeners to arrows
 	};
 
 	/**
-	 *	Binds events to slider, adds nav bar, adds auto advance sliding
-	 *
-	 *	TODO: more robust, less assumptions
+	 *	Populates DOM with gallery and nav, adds event listeners
 	 */
 	var initSlide = function (slider) {
 		// Slider data attributes
 		spacing = slider.dataset.spacing;
 		label1 = slider.dataset.label1;
 		label2 = slider.dataset.label2;
+		numImages = slider.children.length;
 
-		// Initialize instance variables
+		// Initialize images
 		var imageFrag = document.createDocumentFragment();
-		var length = slider.children.length;
-		for(var i = 0; i < length; i++) {
+		for(var i = 0; i < numImages; i++) {
 			imageFrag.appendChild(slider.children[0]);
 		}
 
-		gallery = createGallery(imageFrag);
-		nav = createNav();
-
-		slider.appendChild(gallery);
-		slider.appendChild(nav);
+		createGallery(imageFrag); // Create gallery element with image fragment
+		createNav(); // Create nav element with images initilized;
 
 		// Adds functionality to
-		for (var i = 0; i < images.length; i++) {
-			// Create nav dot
-			var dot = document.createElement('div');
-			dot.className = CLASSNAME.DOT;
-			(function (index) {
-				dot.addEventListener('click', function () {
-					update(index);
-				});
-			})(i);
-
-			// Add to appropriate nav list
-			// hardcoded to account for spacer, FIX LATER
-			if (i < spacing) {
-				nav.children[0].appendChild(dot);
-			} else {
-				nav.children[2].appendChild(dot);
-			}
+		for (var i = 0; i < numImages; i++) {
+			// Create nav dot, add to appropriate nav list
+			var dot = createNavDot(i);
+			var listIndex = (i < spacing) ? 0 : 2; 	// FIX LATER
+			nav.children[listIndex].appendChild(dot);
 
 			// Next image on click
 			images[i].addEventListener('click', function () {
-				var nextIndex = (currIndex + 1) % images.length;
+				var nextIndex = (currIndex + 1) % numImages;
 				update(nextIndex);
 			});
 		}
 
-		slider.appendChild(nav); // Adds nav to DOM
+		slider.appendChild(gallery);
+		slider.appendChild(nav);
 		update(0); // Selects the first image
 	};
 

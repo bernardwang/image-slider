@@ -29,7 +29,6 @@ main{
 }
 
 .slider{
-
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,
@@ -48,11 +47,9 @@ main{
   height: 500px;
 	margin: 0;
   overflow: hidden;
-	
+
 	.gallery-holder{
-		margin: 0;
-		padding: 0;
-		width: 400%;
+		display: inline-flex;
 	}
 	
 	.gallery-image{
