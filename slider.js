@@ -14,13 +14,13 @@ var Slider = function () {
 
 	// Options
 	var config = {
-		spacing: 0, // Where size of nav lists
-		label1: '', // First nav list name
-		label2: '', // Second nav list name
-		width: '', // Gallery width
-		height: '', // Gallery height
-		slide: 500, // Slide transition duration
-		loop: 5000 // Loop duration
+		spacing			: 0, 		// Where size of nav lists
+		label1			: '', 	// First nav list name
+		label2			: '', 	// Second nav list name
+		width				: '', 	// Gallery width
+		height			: '', 	// Gallery height
+		slideSpeed	: 500,	// Slide transition duration
+		loopSpeed		: 5000	// Loop duration
 	};
 
 	// Element class name constants
@@ -46,7 +46,7 @@ var Slider = function () {
 		var position = -(100 / numImages) * newIndex + '%';
 		Velocity(holder, {
 			translateX: position
-		}, config.slide);
+		}, config.slideSpeed);
 	};
 
 	/**
@@ -83,7 +83,8 @@ var Slider = function () {
 		updateNav(newIndex);
 		currIndex = newIndex;
 
-		if (!loop && timer !== 0) { // resets timer if from mouse click
+		// Resets loop if running
+		if (!loop && timer !== 0) {
 			startLoop();
 		}
 	};
@@ -113,7 +114,7 @@ var Slider = function () {
 
 		// Append first list
 		navList1 = createNavList(config.label1);
-		nav.appendChild(navList1); // Append first list
+		nav.appendChild(navList1);
 
 		// Append spacer div and second list if spacing is valid
 		if (config.spacing > 0 && config.spacing < numImages) {
@@ -145,14 +146,8 @@ var Slider = function () {
 		var prev = document.createElement('div');
 		next.className = CLASSNAME.ARROW_NEXT;
 		prev.className = CLASSNAME.ARROW_PREV;
-		next.addEventListener('click', function () {
-			var nextIndex = (currIndex + 1) % numImages;
-			update(nextIndex);
-		});
-		prev.addEventListener('click', function () {
-			var prevIndex = ((currIndex - 1) + numImages) % numImages;
-			update(prevIndex);
-		});
+		next.addEventListener('click', nextSlide);
+		prev.addEventListener('click', prevSlide);
 		return [next, prev];
 	};
 
@@ -172,16 +167,11 @@ var Slider = function () {
 			imageFrag.appendChild(image);
 			image.style.width = 100 / numImages + '%'; // Responsive image width
 			image.style.display = 'block'; // Show images
-			image.addEventListener('click', function () { // Slide on click
-				var nextIndex = (currIndex + 1) % numImages;
-				update(nextIndex);
-			});
+			image.addEventListener('click', nextSlide);
 		}
-		// Responsive slide transitions
-		holder.style.width = 100 * numImages + '%';
-		// Gallery maxWidth, height scales proportionally
-		wrapper.style.maxWidth = config.width + 'px';
-		wrapper.style.paddingBottom = config.width / config.height * 100 + '%';
+		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions
+		wrapper.style.maxWidth = config.width + 'px';	// Set Gallery maxWidth
+		wrapper.style.paddingBottom = config.width / config.height * 100 + '%'; // height scales proportionally
 
 		gallery.appendChild(wrapper);
 		gallery.appendChild(arrows[0]);
@@ -194,14 +184,11 @@ var Slider = function () {
 	};
 
 	/**
-	 *	Sets interval for slide advance
+	 *	Starts loop for slide advance
 	 */
 	var startLoop = function () {
 		stopLoop();
-		timer = setInterval(function () {
-			var nextIndex = (currIndex + 1) % numImages;
-			update(nextIndex, true);
-		}, config.loop);
+		timer = setInterval(nextSlide, config.loopSpeed);
 	};
 
 	/**
@@ -211,6 +198,22 @@ var Slider = function () {
 		clearInterval(timer);
 		timer = 0;
 	};
+
+	/**
+	 *	Advances to next slide
+	 */
+	var nextSlide = function () {
+		var nextIndex = (currIndex + 1) % numImages;
+		update(nextIndex);
+	}
+
+	/**
+	 *	Advances to previous slide
+	 */
+	var prevSlide = function () {
+		var prevIndex = ((currIndex - 1) + numImages) % numImages;
+		update(prevIndex);
+	}
 
 	/**
 	 *	Gets and removes config variables from data attributes
@@ -254,9 +257,11 @@ var Slider = function () {
 	 *	Public methods
 	 */
 	return {
-		init: initSlide,
-		startLoop: startLoop,
-		stopLoop: stopLoop
+		init				: initSlide,
+		startLoop		: startLoop,
+		stopLoop		: stopLoop,
+		nextSlide		: nextSlide,
+		prevSlide		: prevSlide
 	};
 
 };
