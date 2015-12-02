@@ -9,6 +9,8 @@ var Slider = function () {
 	var timer = 0;
 
 	var gallery; 	// Slider gallery element
+	var wrapper;
+	var holder;
 	var images; 	// Gallery image elements
 	var nav; 			// Nav element containing nav lists
 
@@ -43,7 +45,7 @@ var Slider = function () {
 	 */
 	var updateImage = function (newIndex) {
 		var holder = images[0].parentElement; // Parent div of images
-		var position = -(config.width) * newIndex + 'px';
+		var position = -(100/numImages) * newIndex + '%';
 		Velocity(holder, { translateX: position }, config.slide);
 	};
 
@@ -144,8 +146,8 @@ var Slider = function () {
 
 	var createGallery = function (imageFrag) {
 		gallery = document.createElement('div');
-		var wrapper = document.createElement('div');
-		var holder = document.createElement('div');
+		wrapper = document.createElement('div');
+		holder = document.createElement('div');
 		var next = document.createElement('div');
 		var prev = document.createElement('div');
 		gallery.className = CLASSNAME.GALLERY;
@@ -161,12 +163,18 @@ var Slider = function () {
 
 		initArrows(); 														// Binds listeners to arrows
 		images = holder.children;									// Sets image array
+
 		if(!config.width || !config.height) {			// If size not specified, set to first image size
 			config.width = images[0].width;
 			config.height = images[0].height;
 		}
-		wrapper.style.width = config.width+'px';	// Set gallery to correct size
-		wrapper.style.height = config.height+'px';
+		wrapper.style.maxWidth = config.width+'px';	// Set gallery to correct size
+		wrapper.style.paddingBottom = config.width/config.height*100+'%';
+
+		holder.style.width = 100*numImages+'%';
+		for(var i=0;i<numImages; i++){
+			images[i].style.width = 100/numImages+'%';
+		}
 	};
 
 	/**

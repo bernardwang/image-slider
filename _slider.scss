@@ -24,15 +24,20 @@ $nav-selected-color: black;
 .gallery-wrapper{
 	margin: 0;
   overflow: hidden;
+		position: relative;
+	width: 100%;
+	max-height: 0px;
 }
 
 .gallery-holder{
+	margin: 0;
 	display: inline-flex;
 }
 
 .gallery-image{
 	float: left;
 	display: none;
+	max-height: 100%;
 }
 
 .gallery-arrow{
