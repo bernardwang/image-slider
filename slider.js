@@ -257,11 +257,11 @@ var Slider = function () {
 	 *	Public methods
 	 */
 	return {
-		init				: initSlide,
-		startLoop		: startLoop,
-		stopLoop		: stopLoop,
-		nextSlide		: nextSlide,
-		prevSlide		: prevSlide
+		init		: initSlide,
+		start		: startLoop,
+		stop		: stopLoop,
+		next		: nextSlide,
+		prev		: prevSlide
 	};
 
 };
