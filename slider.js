@@ -8,36 +8,34 @@ var Slider = function () {
 	var numImages = 0;
 	var timer = 0;
 
-	var gallery; 	// Slider gallery element
-	var wrapper;
-	var holder;
-	var images; 	// Gallery image elements
-	var nav; 			// Nav element containing nav lists
+	var images;
+	var navList1;
+	var navList2;
 
 	// Options
 	var config = {
-		spacing		: 0,		// Where size of nav lists
-		label1		: '',		// First nav list name
-		label2		: '',		// Second nav list name
-		width			: '',		// Gallery width
-		height		: '',		// Gallery height
-		slide			: 500,	// Slide transition duration
-		loop			: 5000	// Loop duration
-	}
+		spacing: 0, // Where size of nav lists
+		label1: '', // First nav list name
+		label2: '', // Second nav list name
+		width: '', // Gallery width
+		height: '', // Gallery height
+		slide: 500, // Slide transition duration
+		loop: 5000 // Loop duration
+	};
 
 	// Element class name constants
 	var CLASSNAME = {
-		GALLERY			: 'slider-gallery',
-		WRAPPER			: 'gallery-wrapper',
-		HOLDER			: 'gallery-holder',
-		ARROW_NEXT	: 'gallery-arrow next',
-		ARROW_PREV	: 'gallery-arrow prev',
-		NAV					: 'slider-nav',
-		LIST				: 'nav-list',
-		LABEL				: 'nav-label',
-		SPACING			: 'nav-spacing',
-		DOT					: 'nav-dot',
-		DOT_SELECT	: 'nav-dot select'
+		GALLERY: 'slider-gallery',
+		WRAPPER: 'gallery-wrapper',
+		HOLDER: 'gallery-holder',
+		ARROW_NEXT: 'gallery-arrow next',
+		ARROW_PREV: 'gallery-arrow prev',
+		NAV: 'slider-nav',
+		LIST: 'nav-list',
+		LABEL: 'nav-label',
+		SPACING: 'nav-spacing',
+		DOT: 'nav-dot',
+		DOT_SELECT: 'nav-dot select'
 	};
 
 	/**
@@ -45,8 +43,10 @@ var Slider = function () {
 	 */
 	var updateImage = function (newIndex) {
 		var holder = images[0].parentElement; // Parent div of images
-		var position = -(100/numImages) * newIndex + '%';
-		Velocity(holder, { translateX: position }, config.slide);
+		var position = -(100 / numImages) * newIndex + '%';
+		Velocity(holder, {
+			translateX: position
+		}, config.slide);
 	};
 
 	/**
@@ -57,9 +57,6 @@ var Slider = function () {
 			console.log('Invalid index out of bounds');
 			return;
 		}
-
-		var navList1 = nav.children[0];	// hardcoded, FIX LATER
-		var navList2 = nav.children[2];
 
 		// Update dot in correct list
 		if (currIndex < config.spacing) {
@@ -86,25 +83,9 @@ var Slider = function () {
 		updateNav(newIndex);
 		currIndex = newIndex;
 
-		if(!loop && timer != 0) { // resets timer if from mouse click
+		if (!loop && timer !== 0) { // resets timer if from mouse click
 			startLoop();
 		}
-	};
-
-	/**
-	 *	Binds listeners to gallery arrows
-	 */
-	var initArrows = function () {
-		var nextArrow = gallery.children[1];
-		var prevArrow = gallery.children[2];
-		nextArrow.addEventListener('click', function () {
-			var nextIndex = (currIndex + 1) % numImages;
-			update(nextIndex);
-		});
-		prevArrow.addEventListener('click', function () {
-			var prevIndex = ((currIndex - 1) + numImages) % numImages;
-			update(prevIndex);
-		});
 	};
 
 	var createNavDot = function (index) {
@@ -117,64 +98,99 @@ var Slider = function () {
 	};
 
 	var createNavList = function (text) {
-		var navList = document.createElement('div');
-		var navLabel = document.createElement('div');
-		var labelText = document.createTextNode(text);
-		navLabel.className = CLASSNAME.LABEL;
-		navList.className = CLASSNAME.LIST;
-		navLabel.appendChild(labelText);
-		navList.appendChild(navLabel);
-		return navList;
+		var list = document.createElement('div');
+		var label = document.createElement('div');
+		label.className = CLASSNAME.LABEL;
+		list.className = CLASSNAME.LIST;
+		label.appendChild(document.createTextNode(text));
+		list.appendChild(label);
+		return list;
 	};
 
 	var createNav = function () {
-		nav = document.createElement('nav');
+		var nav = document.createElement('nav');
 		nav.className = CLASSNAME.NAV;
-		nav.appendChild(createNavList(config.label1)); // Append first list
 
-		// Valid spacing attribute, append spacer div and second list
-		// Otherwise only use first list
+		// Append first list
+		navList1 = createNavList(config.label1);
+		nav.appendChild(navList1); // Append first list
+
+		// Append spacer div and second list if spacing is valid
 		if (config.spacing > 0 && config.spacing < numImages) {
 			var navSpacing = document.createElement('div');
 			navSpacing.className = CLASSNAME.SPACING;
+			navList2 = createNavList(config.label2);
+
 			nav.appendChild(navSpacing);
-			nav.appendChild(createNavList(config.label2));
+			nav.appendChild(navList2);
 		} else {
 			config.spacing = numImages;
 		}
+
+		// Adds dots to nav lists
+		for (var i = 0; i < numImages; i++) {
+			var dot = createNavDot(i);
+			if (i < config.spacing) {
+				navList1.appendChild(dot);
+			} else {
+				navList2.appendChild(dot);
+			}
+		}
+
+		return nav;
 	};
 
-	var createGallery = function (imageFrag) {
-		gallery = document.createElement('div');
-		wrapper = document.createElement('div');
-		holder = document.createElement('div');
+	var createGalleryArrows = function (gallery) {
 		var next = document.createElement('div');
 		var prev = document.createElement('div');
+		next.className = CLASSNAME.ARROW_NEXT;
+		prev.className = CLASSNAME.ARROW_PREV;
+		next.addEventListener('click', function () {
+			var nextIndex = (currIndex + 1) % numImages;
+			update(nextIndex);
+		});
+		prev.addEventListener('click', function () {
+			var prevIndex = ((currIndex - 1) + numImages) % numImages;
+			update(prevIndex);
+		});
+		return [next, prev];
+	};
+
+	var createGallery = function (slider) {
+		var gallery = document.createElement('div');
+		var wrapper = document.createElement('div');
+		var holder = document.createElement('div');
+		var arrows = createGalleryArrows();
 		gallery.className = CLASSNAME.GALLERY;
 		wrapper.className = CLASSNAME.WRAPPER;
 		holder.className = CLASSNAME.HOLDER;
-		next.className = CLASSNAME.ARROW_NEXT;
-		prev.className = CLASSNAME.ARROW_PREV;
+
+		// Initialize gallery images
+		var imageFrag = document.createDocumentFragment();
+		for (var i = 0; i < numImages; i++) {
+			var image = slider.children[0];
+			imageFrag.appendChild(image);
+			image.style.width = 100 / numImages + '%'; // Responsive image width
+			image.style.display = 'block'; // Show images
+			image.addEventListener('click', function () { // Slide on click
+				var nextIndex = (currIndex + 1) % numImages;
+				update(nextIndex);
+			});
+		}
+		// Responsive slide transitions
+		holder.style.width = 100 * numImages + '%';
+		// Gallery maxWidth, height scales proportionally
+		wrapper.style.maxWidth = config.width + 'px';
+		wrapper.style.paddingBottom = config.width / config.height * 100 + '%';
+
 		gallery.appendChild(wrapper);
-		gallery.appendChild(next);
-		gallery.appendChild(prev);
+		gallery.appendChild(arrows[0]);
+		gallery.appendChild(arrows[1]);
 		wrapper.appendChild(holder);
 		holder.appendChild(imageFrag);
+		images = holder.children; // Saves images
 
-		initArrows(); 														// Binds listeners to arrows
-		images = holder.children;									// Sets image array
-
-		if(!config.width || !config.height) {			// If size not specified, set to first image size
-			config.width = images[0].width;
-			config.height = images[0].height;
-		}
-		wrapper.style.maxWidth = config.width+'px';	// Set gallery to correct size
-		wrapper.style.paddingBottom = config.width/config.height*100+'%';
-
-		holder.style.width = 100*numImages+'%';
-		for(var i=0;i<numImages; i++){
-			images[i].style.width = 100/numImages+'%';
-		}
+		return gallery;
 	};
 
 	/**
@@ -184,7 +200,7 @@ var Slider = function () {
 		stopLoop();
 		timer = setInterval(function () {
 			var nextIndex = (currIndex + 1) % numImages;
-			update(nextIndex,true);
+			update(nextIndex, true);
 		}, config.loop);
 	};
 
@@ -210,44 +226,27 @@ var Slider = function () {
 		slider.removeAttribute('data-label2');
 		slider.removeAttribute('data-width');
 		slider.removeAttribute('data-height');
+
+		// If size isnt set, default to first image's size
+		var firstImg = slider.children[0];
+		if (!config.width || !config.height) {
+			config.width = firstImg.width;
+			config.height = firstImg.height;
+		}
 	};
 
 	/**
 	 *	Populates DOM with gallery and nav, adds event listeners
 	 */
 	var initSlide = function (slider) {
-
 		initConfig(slider);
 		numImages = slider.children.length;
 
-		// Move images to fragment
-		var imageFrag = document.createDocumentFragment();
-		for (var i = 0; i < numImages; i++) {
-			imageFrag.appendChild(slider.children[0]);
-		}
-
-		createGallery(imageFrag); // Create gallery element with image fragment
-		createNav(); // Create nav element with images initilized;
-
-		// Adds functionality to
-		for (var i = 0; i < numImages; i++) {
-			// Create nav dot, add to appropriate nav list
-			var dot = createNavDot(i);
-			var listIndex = (i < config.spacing) ? 0 : 2; 	// FIX LATER
-			nav.children[listIndex].appendChild(dot);
-
-			// Next image on click
-			images[i].addEventListener('click', function () {
-				var nextIndex = (currIndex + 1) % numImages;
-				update(nextIndex);
-			});
-
-			// Show images
-			images[i].style.display = 'block';
-		}
-
+		var gallery = createGallery(slider); // Create gallery element
+		var nav = createNav(); // Create nav element
 		slider.appendChild(gallery);
 		slider.appendChild(nav);
+
 		update(0); // Selects the first image
 	};
 
@@ -255,9 +254,9 @@ var Slider = function () {
 	 *	Public methods
 	 */
 	return {
-		init				: initSlide,
-		startLoop 	: startLoop,
-		stopLoop 		: stopLoop
+		init: initSlide,
+		startLoop: startLoop,
+		stopLoop: stopLoop
 	};
 
 };
