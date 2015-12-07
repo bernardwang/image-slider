@@ -1,8 +1,8 @@
 //
-//	Slider.js
+//	imageSlider.js
 //
 
-var Slider = function () {
+var ImageSlider = function () {
 
 	var currIndex = 0;
 	var numImages = 0;
@@ -109,7 +109,7 @@ var Slider = function () {
 	};
 
 	var createNav = function () {
-		var nav = document.createElement('nav');
+		var nav = document.createElement('div');
 		nav.className = CLASSNAME.NAV;
 
 		// Append first list

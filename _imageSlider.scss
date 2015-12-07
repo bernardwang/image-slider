@@ -1,6 +1,6 @@
 //
 //
-//	_slider.scss
+//	_imageSlider.scss
 //
 //
 
@@ -9,32 +9,32 @@
 	Slider markup after Javascript buildout
 	Use as reference when styling
 
-	<div class="slider">
+	<div class="image-slider">
 		<div class="slider-gallery">
 			<div class="gallery-wrapper">
 				<div class="gallery-holder">
-				<img class="gallery-image" src="">
-				<img class="gallery-image" src="">
-				<img class="gallery-image" src="">
-				<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+				</div>
+			</div>
+			<div class="gallery-arrow next"></div>
+			<div class="gallery-arrow prev"></div>
+		</div>
+		<div class="slider-nav">
+			<div class="nav-list">
+				<div class="nav-label">Final Work</div>
+				<div class="nav-dot select"></div>
+				<div class="nav-dot"></div>
+			</div>
+			<div class="nav-spacing"></div>
+			<div class="nav-list">
+				<div class="nav-label">Process Work</div>
+				<div class="nav-dot"></div>
+				<div class="nav-dot"></div>
 			</div>
 		</div>
-		<div class="gallery-arrow next"></div>
-		<div class="gallery-arrow prev"></div>
-	</div>
-	<nav class="slider-nav">
-		<div class="nav-list">
-			<div class="nav-label">Final Work</div>
-			<div class="nav-dot select"></div>
-			<div class="nav-dot"></div>
-		</div>
-		<div class="nav-spacing"></div>
-		<div class="nav-list">
-			<div class="nav-label">Process Work</div>
-			<div class="nav-dot"></div>
-			<div class="nav-dot"></div>
-		</div>
-	</nav>
 	</div>
 
 */
@@ -43,12 +43,9 @@ $nav-font-color: grey;
 $nav-color: grey;
 $nav-selected-color: black;
 
-.slider{
+.image-slider{
 	width: 100%;
 	height: 100%;
-}
-
-.slider{
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,

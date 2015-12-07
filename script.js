@@ -2,23 +2,23 @@
  *	Initalizes all sliders
  */
 var init = function () {
-	var sliders = [];
-	var elements = document.getElementsByClassName('slider');
+	var imageSliders = [];
+	var elements = document.getElementsByClassName('image-slider');
 
 	for (var i = 0; i < elements.length; i++) {
-		var slider = Slider(); // Create new Slider object
+		var slider = ImageSlider(); // Create new Slider object
 		slider.init(elements[i]); // Initialize it with HTML element
-		sliders.push(slider); // Save the Slider objects
+		imageSliders.push(slider); // Save the Slider objects
 	}
 
 	// for testing loop
 	var start = document.getElementById('start');
 	var stop = document.getElementById('stop');
 	start.addEventListener('click', function () {
-		sliders[0].startLoop();
+		imageSliders[0].startLoop();
 	});
 	stop.addEventListener('click', function () {
-		sliders[0].stopLoop();
+		imageSliders[0].stopLoop();
 	});
 
 };
