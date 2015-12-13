@@ -34,8 +34,6 @@
 */
 /* line 46, _imageSlider.scss */
 .image-slider {
-  width: 100%;
-  height: 100%;
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
   -webkit-flex-direction: row;
@@ -48,34 +46,32 @@
   align-content: center;
 }
 
-/* line 58, _imageSlider.scss */
+/* line 56, _imageSlider.scss */
 .slider-gallery {
   position: relative;
 }
 
-/* line 62, _imageSlider.scss */
+/* line 60, _imageSlider.scss */
 .gallery-wrapper {
   margin: 0;
   overflow: hidden;
-  position: relative;
   width: 100%;
   max-height: 0px;
 }
 
-/* line 70, _imageSlider.scss */
+/* line 67, _imageSlider.scss */
 .gallery-holder {
   margin: 0;
   display: inline-flex;
 }
 
-/* line 75, _imageSlider.scss */
+/* line 72, _imageSlider.scss */
 .gallery-image {
-  float: left;
-  display: none;
   height: 100%;
+  object-fit: cover;
 }
 
-/* line 81, _imageSlider.scss */
+/* line 77, _imageSlider.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
@@ -83,16 +79,16 @@
   height: 20px;
   background-color: black;
 }
-/* line 88, _imageSlider.scss */
+/* line 84, _imageSlider.scss */
 .gallery-arrow.next {
   right: -20px;
 }
-/* line 91, _imageSlider.scss */
+/* line 87, _imageSlider.scss */
 .gallery-arrow.prev {
   left: -20px;
 }
 
-/* line 96, _imageSlider.scss */
+/* line 92, _imageSlider.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -107,20 +103,20 @@
   align-content: center;
 }
 
-/* line 107, _imageSlider.scss */
+/* line 103, _imageSlider.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 113, _imageSlider.scss */
+/* line 109, _imageSlider.scss */
 .nav-label {
   font-size: 10px;
   color: grey;
 }
 
-/* line 118, _imageSlider.scss */
+/* line 114, _imageSlider.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -129,7 +125,7 @@
   background-color: grey;
 }
 
-/* line 126, _imageSlider.scss */
+/* line 122, _imageSlider.scss */
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -139,7 +135,7 @@
   border-radius: 10px;
   background-color: grey;
 }
-/* line 135, _imageSlider.scss */
+/* line 131, _imageSlider.scss */
 .nav-dot.select {
   background-color: black;
 }
@@ -156,14 +152,6 @@ html, body {
 
 /* line 13, main.scss */
 main {
-  display: -webkit-flex;
-  -webkit-flex-wrap: wrap;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: center;
-  -webkit-align-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }

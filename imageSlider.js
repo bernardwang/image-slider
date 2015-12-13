@@ -109,7 +109,7 @@ var ImageSlider = function () {
 	};
 
 	var createNav = function () {
-		var nav = document.createElement('div');
+		var nav = document.createElement('nav');
 		nav.className = CLASSNAME.NAV;
 
 		// Append first list
@@ -170,8 +170,9 @@ var ImageSlider = function () {
 			image.addEventListener('click', nextSlide);
 		}
 		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions
+		holder.style.height = config.height + 'px';
 		wrapper.style.maxWidth = config.width + 'px';	// Set Gallery maxWidth
-		wrapper.style.paddingBottom = config.width / config.height * 100 + '%'; // height scales proportionally
+		wrapper.style.paddingBottom = config.height / config.width * 100 + '%'; // height scales proportionally
 
 		gallery.appendChild(wrapper);
 		gallery.appendChild(arrows[0]);

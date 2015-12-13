@@ -22,3 +22,7 @@ Demo at [bernard.wang/custom-slider](http://bernard.wang/custom-slider/)
 	* stop - Stop automatic sliding
 	* next - Advance to next slide
 	* prev - Advance to previous slide
+	
+## Todo
+* Better sizing
+* More options
