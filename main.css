@@ -32,7 +32,7 @@
 	</div>
 
 */
-/* line 46, _imageSlider.scss */
+/* line 48, _imageSlider.scss */
 .image-slider {
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
@@ -46,49 +46,65 @@
   align-content: center;
 }
 
-/* line 56, _imageSlider.scss */
+/* line 58, _imageSlider.scss */
 .slider-gallery {
   position: relative;
+  margin: 20px;
 }
 
-/* line 60, _imageSlider.scss */
+/* line 63, _imageSlider.scss */
 .gallery-wrapper {
   margin: 0;
   overflow: hidden;
-  width: 100%;
-  max-height: 0px;
+  max-width: 800px;
+  height: auto;
 }
 
-/* line 67, _imageSlider.scss */
+/* line 70, _imageSlider.scss */
 .gallery-holder {
   margin: 0;
   display: inline-flex;
 }
 
-/* line 72, _imageSlider.scss */
+/* line 75, _imageSlider.scss */
 .gallery-image {
   height: 100%;
   object-fit: cover;
 }
 
-/* line 77, _imageSlider.scss */
+/* line 80, _imageSlider.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
-  width: 20px;
-  height: 20px;
-  background-color: black;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  opacity: .6;
+  -moz-transition: opacity, 0.5s;
+  -o-transition: opacity, 0.5s;
+  -webkit-transition: opacity, 0.5s;
+  transition: opacity, 0.5s;
 }
-/* line 84, _imageSlider.scss */
+/* line 89, _imageSlider.scss */
 .gallery-arrow.next {
-  right: -20px;
+  right: -50px;
+  background-image: url("right.png");
 }
-/* line 87, _imageSlider.scss */
+/* line 93, _imageSlider.scss */
+.gallery-arrow.next:hover {
+  opacity: 1;
+}
+/* line 97, _imageSlider.scss */
 .gallery-arrow.prev {
-  left: -20px;
+  left: -50px;
+  background-image: url("left.png");
+}
+/* line 101, _imageSlider.scss */
+.gallery-arrow.prev:hover {
+  opacity: 1;
 }
 
-/* line 92, _imageSlider.scss */
+/* line 107, _imageSlider.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -103,20 +119,20 @@
   align-content: center;
 }
 
-/* line 103, _imageSlider.scss */
+/* line 118, _imageSlider.scss */
 .nav-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* line 109, _imageSlider.scss */
+/* line 124, _imageSlider.scss */
 .nav-label {
   font-size: 10px;
   color: grey;
 }
 
-/* line 114, _imageSlider.scss */
+/* line 129, _imageSlider.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -125,7 +141,7 @@
   background-color: grey;
 }
 
-/* line 122, _imageSlider.scss */
+/* line 137, _imageSlider.scss */
 .nav-dot {
   width: 10px;
   height: 10px;
@@ -135,8 +151,16 @@
   border-radius: 10px;
   background-color: grey;
 }
-/* line 131, _imageSlider.scss */
+/* line 146, _imageSlider.scss */
 .nav-dot.select {
+  background-color: black;
+}
+/* line 150, _imageSlider.scss */
+.nav-dot:hover {
+  -moz-transition: color, 0.5s;
+  -o-transition: color, 0.5s;
+  -webkit-transition: color, 0.5s;
+  transition: color, 0.5s;
   background-color: black;
 }
 

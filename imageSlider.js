@@ -17,8 +17,7 @@ var ImageSlider = function () {
 		spacing			: 0, 		// Where size of nav lists
 		label1			: '', 	// First nav list name
 		label2			: '', 	// Second nav list name
-		width				: '', 	// Gallery width
-		height			: '', 	// Gallery height
+		width				: '', 	// Gallery max width
 		slideSpeed	: 500,	// Slide transition duration
 		loopSpeed		: 5000	// Loop duration
 	};
@@ -170,9 +169,9 @@ var ImageSlider = function () {
 			image.addEventListener('click', nextSlide);
 		}
 		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions
-		holder.style.height = config.height + 'px';
-		wrapper.style.maxWidth = config.width + 'px';	// Set Gallery maxWidth
-		wrapper.style.paddingBottom = config.height / config.width * 100 + '%'; // height scales proportionally
+		if(config.width){
+			wrapper.style.maxWidth = config.width;
+		}
 
 		gallery.appendChild(wrapper);
 		gallery.appendChild(arrows[0]);
@@ -224,19 +223,10 @@ var ImageSlider = function () {
 		config.label1 = slider.dataset.label1;
 		config.label2 = slider.dataset.label2;
 		config.width = slider.dataset.width;
-		config.height = slider.dataset.height;
 		slider.removeAttribute('data-spacing');
 		slider.removeAttribute('data-label1');
 		slider.removeAttribute('data-label2');
 		slider.removeAttribute('data-width');
-		slider.removeAttribute('data-height');
-
-		// If size isnt set, default to first image's size
-		var firstImg = slider.children[0];
-		if (!config.width || !config.height) {
-			config.width = firstImg.width;
-			config.height = firstImg.height;
-		}
 	};
 
 	/**

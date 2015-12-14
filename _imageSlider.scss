@@ -39,9 +39,11 @@
 
 */
 
-$nav-font-color: grey;
-$nav-color: grey;
-$nav-selected-color: black;
+$gallery-max-width: 800px;		// Image default max width;
+
+$nav-font-color: grey;				// Font color of navigation labels
+$nav-color: grey;							// Nav dot unselected color
+$nav-selected-color: black;		// Nav dot selected and hover color
 
 .image-slider{
 	@include flexbox((
@@ -55,13 +57,14 @@ $nav-selected-color: black;
 
 .slider-gallery{
 	position: relative;
+	margin: 20px;
 }
 
 .gallery-wrapper{
 	margin: 0;
   overflow: hidden;
-	width: 100%;
-	max-height: 0px;
+	max-width: $gallery-max-width;
+	height: auto;
 }
 
 .gallery-holder{
@@ -77,15 +80,27 @@ $nav-selected-color: black;
 .gallery-arrow{
 	position: absolute;
 	top: 45%;		// does not consider arrow size, change to calc eventually
-	width: 20px;
-	height: 20px;
-	background-color: black;
+	width: 30px;
+	height: 30px;
+	background-size: cover;
+	opacity: .6;
+	@include transition(opacity, 0.5s);
 
 	&.next{
-		right: -20px;
+		right: -50px;
+		background-image: url('right.png');
+
+		&:hover{
+			opacity: 1;
+		}
 	}
 	&.prev{
-		left: -20px;
+		left: -50px;
+		background-image: url('left.png');
+
+		&:hover{
+			opacity: 1;
+		}
 	}
 }
 
@@ -129,6 +144,11 @@ $nav-selected-color: black;
 	background-color: $nav-color;
 
 	&.select{
+		background-color: $nav-selected-color;
+	}
+
+	&:hover{
+		@include transition(color, .5s);
 		background-color: $nav-selected-color;
 	}
 }
