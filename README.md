@@ -16,13 +16,12 @@ Demo at [bernard.wang/custom-slider](http://bernard.wang/custom-slider/)
 * Individual options with HTML data attributes
   * Nav bar spacing
   * Nav bar labels
-  * Max width and max height (Also specifies ratio)
+  * Max width
 * Methods
-	* start - Automatically slide after duration (default 5000ms)
+	* start - Automatically slide after duration
 	* stop - Stop automatic sliding
 	* next - Advance to next slide
 	* prev - Advance to previous slide
 	
 ## Todo
-* Better sizing
 * More options

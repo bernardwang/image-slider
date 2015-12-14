@@ -4,14 +4,6 @@
 
 var ImageSlider = function () {
 
-	var currIndex = 0;
-	var numImages = 0;
-	var timer = 0;
-
-	var images;
-	var navList1;
-	var navList2;
-
 	// Options
 	var config = {
 		spacing			: 0, 		// Where size of nav lists
@@ -21,6 +13,14 @@ var ImageSlider = function () {
 		slideSpeed	: 500,	// Slide transition duration
 		loopSpeed		: 5000	// Loop duration
 	};
+
+	var currIndex = 0;
+	var numImages = 0;
+	var timer = 0;
+
+	var images;
+	var navList1;
+	var navList2;
 
 	// Element class name constants
 	var CLASSNAME = {

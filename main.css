@@ -150,17 +150,22 @@
   display: inline-block;
   border-radius: 10px;
   background-color: grey;
+  -moz-transition: background-color 0.4s ease-in-out;
+  -o-transition: background-color 0.4s ease-in-out;
+  -webkit-transition: background-color 0.4s ease-in-out;
+  transition: background-color 0.4s ease-in-out;
 }
-/* line 146, _imageSlider.scss */
+/* line 147, _imageSlider.scss */
 .nav-dot.select {
+  transform: scale(1.1, 1.1);
+  -moz-transition: -moz-transform 0.1s ease-in-out;
+  -o-transition: -o-transform 0.1s ease-in-out;
+  -webkit-transition: -webkit-transform 0.1s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   background-color: black;
 }
-/* line 150, _imageSlider.scss */
+/* line 153, _imageSlider.scss */
 .nav-dot:hover {
-  -moz-transition: color, 0.5s;
-  -o-transition: color, 0.5s;
-  -webkit-transition: color, 0.5s;
-  transition: color, 0.5s;
   background-color: black;
 }
 

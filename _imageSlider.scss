@@ -142,13 +142,15 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 	display: inline-block;
 	border-radius: 10px;
 	background-color: $nav-color;
+	@include transition(background-color 0.4s ease-in-out);
 
 	&.select{
+		transform: scale(1.1, 1.1);
+		@include transition(transform .1s ease-in-out);
 		background-color: $nav-selected-color;
 	}
 
 	&:hover{
-		@include transition(color, .5s);
 		background-color: $nav-selected-color;
 	}
 }
