@@ -4,6 +4,17 @@
 //
 //
 
+@import 'compass/css3';
+
+$gallery-max-width: 800px;		// Image default max width;
+
+$next-arrow-img: url('../img/slider-arrow-right.png');
+$prev-arrow-img: url('../img/slider-arrow-left.png');
+
+$nav-font-color: grey;				// Font color of navigation labels
+$nav-color: grey;							// Nav dot unselected color
+$nav-selected-color: black;		// Nav dot selected and hover color
+
 /*
 
 	Slider markup after Javascript buildout
@@ -38,12 +49,6 @@
 	</div>
 
 */
-
-$gallery-max-width: 800px;		// Image default max width;
-
-$nav-font-color: grey;				// Font color of navigation labels
-$nav-color: grey;							// Nav dot unselected color
-$nav-selected-color: black;		// Nav dot selected and hover color
 
 .image-slider{
 	@include flexbox((
@@ -88,7 +93,7 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 
 	&.next{
 		right: -50px;
-		background-image: url('right.png');
+		background-image: $next-arrow-img;
 
 		&:hover{
 			opacity: 1;
@@ -96,7 +101,7 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 	}
 	&.prev{
 		left: -50px;
-		background-image: url('left.png');
+		background-image: $prev-arrow-img;
 
 		&:hover{
 			opacity: 1;
