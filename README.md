@@ -10,18 +10,42 @@ Demo at [bernard.wang/custom-slider](http://bernard.wang/custom-slider/)
 ## Features
 * Multiple sliders on a page, each controlled independently
 * No id's needed
-* No Jquery, only library used is a single line of Velocity.js for the sliding animation
+* No JQuery needed
 * Simple slider markup, rest of the HTML is builtout with JS
-* Responsive! Ratio of size is preserved with resizing
-* Individual options with HTML data attributes
-  * Nav bar spacing
-  * Nav bar labels
-  * Max width
+* Responsive!
+* Optional settings with HTML data attributes
+  * 'data-spacing' - Option for having separated images, sets position of divider
+  * 'data-label1', 'data-label2' - If spacing attribute is set, these two labels will be shown
+  * 'data-width' - Option for setting the slider max-width through HTML as an alternative to CSS
 * Methods
 	* start - Automatically slide after duration
 	* stop - Stop automatic sliding
 	* next - Advance to next slide
 	* prev - Advance to previous slide
 	
-## Todo
-* More options
+## Usage
+
+HTML
+```
+<figure class='image-slider'
+		 data-spacing='0'			
+		 data-label1='Final'	
+		 data-label2='Process'
+		 data-width='40vw'>		
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+</figure>
+```
+
+JS
+```javascript
+var imageSliders = []; // List of all sliders
+var elements = document.getElementsByClassName('image-slider'); // Select every slider element
+for (var i = 0; i < elements.length; i++) {
+	var slider = ImageSlider(); // Create new Slider object
+	slider.init(elements[i]); // Initialize it
+	imageSliders.push(slider); // Save the Slider object for future use
+}
+```

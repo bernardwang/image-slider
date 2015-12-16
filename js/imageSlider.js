@@ -6,12 +6,12 @@ var ImageSlider = function () {
 
 	// Options
 	var config = {
-		spacing			: 0, 		// Where size of nav lists
-		label1			: '', 	// First nav list name
-		label2			: '', 	// Second nav list name
-		width				: '', 	// Gallery max width
-		slideSpeed	: 500,	// Slide transition duration
-		loopSpeed		: 5000	// Loop duration
+		spacing			: 0, 			// Spacing of nav lists
+		label1			: '', 		// First nav list name
+		label2			: '', 		// Second nav list name
+		width				: '', 		// Gallery max width, 800px by default
+		slideSpeed	: 500,		// Slide transition duration
+		loopSpeed		: 5000		// Loop duration
 	};
 
 	var currIndex = 0;
@@ -43,9 +43,12 @@ var ImageSlider = function () {
 	var updateImage = function (newIndex) {
 		var holder = images[0].parentElement; // Parent div of images
 		var position = -(100 / numImages) * newIndex + '%';
-		Velocity(holder, {
-			translateX: position
-		}, config.slideSpeed);
+
+		// With JQuery
+		//$.Velocity.animate(holder, {translateX: position}, config.slideSpeed);
+
+		// Without JQuery
+		Velocity(holder, {translateX: position}, config.slideSpeed);
 	};
 
 	/**
@@ -102,7 +105,9 @@ var ImageSlider = function () {
 		var label = document.createElement('div');
 		label.className = CLASSNAME.LABEL;
 		list.className = CLASSNAME.LIST;
-		label.appendChild(document.createTextNode(text));
+		if(text) {
+			label.appendChild(document.createTextNode(text));
+		}
 		list.appendChild(label);
 		return list;
 	};
