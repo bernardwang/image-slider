@@ -3,9 +3,9 @@
 ## About
 A custom slider widget built for [Lisa](https://github.com/LisaVuong)
 
-Built with plain JS, [Velocity.js](http://julian.com/research/velocity/), and Compass for styling
+Built with plain JS, [Velocity.js](http://julian.com/research/velocity/), and SASS/Compass
 
-Demo at [bernard.wang/custom-slider](http://bernard.wang/custom-slider/)
+Demo at [bernard.wang/image-slider](http://bernard.wang/image-slider/)
 
 ## Features
 * Multiple sliders on a page, each controlled independently
