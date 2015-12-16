@@ -1,8 +1,18 @@
 //
-//	Slider.js
+//	imageSlider.js
 //
 
-var Slider = function () {
+var ImageSlider = function () {
+
+	// Options
+	var config = {
+		spacing			: 0, 			// Spacing of nav lists
+		label1			: '', 		// First nav list name
+		label2			: '', 		// Second nav list name
+		width				: '', 		// Gallery max width, 800px by default
+		slideSpeed	: 500,		// Slide transition duration
+		loopSpeed		: 5000		// Loop duration
+	};
 
 	var currIndex = 0;
 	var numImages = 0;
@@ -11,17 +21,6 @@ var Slider = function () {
 	var images;
 	var navList1;
 	var navList2;
-
-	// Options
-	var config = {
-		spacing			: 0, 		// Where size of nav lists
-		label1			: '', 	// First nav list name
-		label2			: '', 	// Second nav list name
-		width				: '', 	// Gallery width
-		height			: '', 	// Gallery height
-		slideSpeed	: 500,	// Slide transition duration
-		loopSpeed		: 5000	// Loop duration
-	};
 
 	// Element class name constants
 	var CLASSNAME = {
@@ -44,9 +43,12 @@ var Slider = function () {
 	var updateImage = function (newIndex) {
 		var holder = images[0].parentElement; // Parent div of images
 		var position = -(100 / numImages) * newIndex + '%';
-		Velocity(holder, {
-			translateX: position
-		}, config.slideSpeed);
+
+		// With JQuery
+		//$.Velocity.animate(holder, {translateX: position}, config.slideSpeed);
+
+		// Without JQuery
+		Velocity(holder, {translateX: position}, config.slideSpeed);
 	};
 
 	/**
@@ -103,7 +105,9 @@ var Slider = function () {
 		var label = document.createElement('div');
 		label.className = CLASSNAME.LABEL;
 		list.className = CLASSNAME.LIST;
-		label.appendChild(document.createTextNode(text));
+		if(text) {
+			label.appendChild(document.createTextNode(text));
+		}
 		list.appendChild(label);
 		return list;
 	};
@@ -170,8 +174,9 @@ var Slider = function () {
 			image.addEventListener('click', nextSlide);
 		}
 		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions
-		wrapper.style.maxWidth = config.width + 'px';	// Set Gallery maxWidth
-		wrapper.style.paddingBottom = config.width / config.height * 100 + '%'; // height scales proportionally
+		if(config.width){
+			wrapper.style.maxWidth = config.width;
+		}
 
 		gallery.appendChild(wrapper);
 		gallery.appendChild(arrows[0]);
@@ -223,19 +228,10 @@ var Slider = function () {
 		config.label1 = slider.dataset.label1;
 		config.label2 = slider.dataset.label2;
 		config.width = slider.dataset.width;
-		config.height = slider.dataset.height;
 		slider.removeAttribute('data-spacing');
 		slider.removeAttribute('data-label1');
 		slider.removeAttribute('data-label2');
 		slider.removeAttribute('data-width');
-		slider.removeAttribute('data-height');
-
-		// If size isnt set, default to first image's size
-		var firstImg = slider.children[0];
-		if (!config.width || !config.height) {
-			config.width = firstImg.width;
-			config.height = firstImg.height;
-		}
 	};
 
 	/**

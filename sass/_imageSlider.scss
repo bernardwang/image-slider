@@ -1,0 +1,161 @@
+//
+//
+//	_imageSlider.scss
+//
+//
+
+@import 'compass/css3';
+
+$gallery-max-width: 800px;		// Image default max width;
+
+$next-arrow-img: url('../img/slider-arrow-right.png');
+$prev-arrow-img: url('../img/slider-arrow-left.png');
+
+$nav-font-color: grey;				// Font color of navigation labels
+$nav-color: grey;							// Nav dot unselected color
+$nav-selected-color: black;		// Nav dot selected and hover color
+
+/*
+
+	Slider markup after Javascript buildout
+	Use as reference when styling
+
+	<div class="image-slider">
+		<div class="slider-gallery">
+			<div class="gallery-wrapper">
+				<div class="gallery-holder">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+					<img class="gallery-image" src="">
+				</div>
+			</div>
+			<div class="gallery-arrow next"></div>
+			<div class="gallery-arrow prev"></div>
+		</div>
+		<div class="slider-nav">
+			<div class="nav-list">
+				<div class="nav-label">Final Work</div>
+				<div class="nav-dot select"></div>
+				<div class="nav-dot"></div>
+			</div>
+			<div class="nav-spacing"></div>
+			<div class="nav-list">
+				<div class="nav-label">Process Work</div>
+				<div class="nav-dot"></div>
+				<div class="nav-dot"></div>
+			</div>
+		</div>
+	</div>
+
+*/
+
+.image-slider{
+	@include flexbox((
+    display: flex,
+		flex-wrap: wrap,
+    flex-direction: row,
+		justify-content: center,
+		align-content: center
+  ));
+}
+
+.slider-gallery{
+	position: relative;
+	margin: 20px;
+}
+
+.gallery-wrapper{
+	margin: 0;
+  overflow: hidden;
+	max-width: $gallery-max-width;
+	height: auto;
+}
+
+.gallery-holder{
+	margin: 0;
+	display: inline-flex;
+}
+
+.gallery-image{
+	height: 100%;
+	object-fit: cover;
+}
+
+.gallery-arrow{
+	position: absolute;
+	top: 45%;		// does not consider arrow size, change to calc eventually
+	width: 30px;
+	height: 30px;
+	background-size: cover;
+	opacity: .6;
+	@include transition(opacity, 0.5s);
+
+	&.next{
+		right: -50px;
+		background-image: $next-arrow-img;
+
+		&:hover{
+			opacity: 1;
+		}
+	}
+	&.prev{
+		left: -50px;
+		background-image: $prev-arrow-img;
+
+		&:hover{
+			opacity: 1;
+		}
+	}
+}
+
+.slider-nav{
+	width:100%;
+	@include flexbox((
+    display: flex,
+		flex-wrap: nowrap,
+    flex-direction: row,
+		justify-content: center,
+		align-content: center
+  ));
+}
+
+.nav-list{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nav-label{
+	font-size: 10px;
+	color: $nav-font-color;
+}
+
+.nav-spacing{
+	width: 1px;
+	height: 20px;
+	margin-right: 15px;
+	margin-top: auto;
+	background-color: $nav-color;
+}
+
+.nav-dot{
+	width: 10px;
+	height: 10px;
+	margin-right: 15px;
+	padding: 0;
+	display: inline-block;
+	border-radius: 10px;
+	background-color: $nav-color;
+	@include transition(background-color 0.4s ease-in-out);
+
+	&.select{
+		transform: scale(1.1, 1.1);
+		@include transition(transform .1s ease-in-out);
+		background-color: $nav-selected-color;
+	}
+
+	&:hover{
+		background-color: $nav-selected-color;
+	}
+}

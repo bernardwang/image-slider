@@ -3,22 +3,49 @@
 ## About
 A custom slider widget built for [Lisa](https://github.com/LisaVuong)
 
-Built with plain JS, [Velocity.js](http://julian.com/research/velocity/), and Compass for styling
+Built with plain JS, [Velocity.js](http://julian.com/research/velocity/), and SASS/Compass
 
 Demo at [http://bernard.wang/image-slider/](http://bernard.wang/image-slider/)
 
 ## Features
 * Multiple sliders on a page, each controlled independently
 * No id's needed
-* No Jquery
+* No JQuery needed
 * Simple slider markup, rest of the HTML is builtout with JS
-* Responsive! Image ratio is preserved with resizing
-* Individual options with HTML data attributes
-  * Nav bar spacing
-  * Nav bar labels
-  * Max width and max height (Also specifies ratio)
+* Responsive!
+* Optional settings with HTML data attributes
+  * 'data-spacing' - Option for having separated images, sets position of divider
+  * 'data-label1', 'data-label2' - If spacing attribute is set, these two labels will be shown
+  * 'data-width' - Option for setting the slider max-width through HTML as an alternative to CSS
 * Methods
-  * start - Automatically slide after duration (default 5000ms)
-  * stop - Stop automatic sliding
-  * next - Advance to next slide
-  * prev - Advance to previous slide
+	* start - Automatically slide after duration
+	* stop - Stop automatic sliding
+	* next - Advance to next slide
+	* prev - Advance to previous slide
+	
+## Usage
+
+HTML
+```
+<figure class='image-slider'
+		 data-spacing='0'			
+		 data-label1='Final'	
+		 data-label2='Process'
+		 data-width='40vw'>		
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+	<img class='gallery-image'src=''/>
+</figure>
+```
+
+JS
+```javascript
+var imageSliders = []; // List of all sliders
+var elements = document.getElementsByClassName('image-slider'); // Select every slider element
+for (var i = 0; i < elements.length; i++) {
+	var slider = ImageSlider(); // Create new Slider object
+	slider.init(elements[i]); // Initialize it
+	imageSliders.push(slider); // Save the Slider object for future use
+}
+```
