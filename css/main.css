@@ -32,8 +32,15 @@
 	</div>
 
 */
-/* line 53, ../sass/_imageSlider.scss */
+/* line 57, ../sass/_imageSlider.scss */
 .image-slider {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
   -webkit-flex-direction: row;
@@ -46,65 +53,63 @@
   align-content: center;
 }
 
-/* line 63, ../sass/_imageSlider.scss */
+/* line 75, ../sass/_imageSlider.scss */
 .slider-gallery {
   position: relative;
-  margin: 20px;
 }
 
-/* line 68, ../sass/_imageSlider.scss */
+/* line 79, ../sass/_imageSlider.scss */
 .gallery-wrapper {
   margin: 0;
   overflow: hidden;
-  max-width: 800px;
-  height: auto;
-}
-
-/* line 75, ../sass/_imageSlider.scss */
-.gallery-holder {
-  margin: 0;
-  display: inline-flex;
-}
-
-/* line 80, ../sass/_imageSlider.scss */
-.gallery-image {
-  height: 100%;
-  object-fit: cover;
+  border: 1px solid black;
 }
 
 /* line 85, ../sass/_imageSlider.scss */
+.gallery-holder {
+  margin: 0;
+  display: inline-flex;
+  height: auto;
+}
+
+/* line 91, ../sass/_imageSlider.scss */
+.gallery-image {
+  height: 100%;
+  margin-top: auto;
+  object-fit: cover;
+}
+
+/* line 97, ../sass/_imageSlider.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
-  width: 30px;
-  height: 30px;
-  background-size: cover;
-  opacity: .6;
+  width: 35px;
+  height: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   -moz-transition: opacity, 0.5s;
   -o-transition: opacity, 0.5s;
   -webkit-transition: opacity, 0.5s;
   transition: opacity, 0.5s;
+  opacity: .5;
 }
-/* line 94, ../sass/_imageSlider.scss */
+/* line 108, ../sass/_imageSlider.scss */
+.gallery-arrow:hover {
+  opacity: .7;
+}
+/* line 112, ../sass/_imageSlider.scss */
 .gallery-arrow.next {
   right: -50px;
   background-image: url("../img/slider-arrow-right.png");
 }
-/* line 98, ../sass/_imageSlider.scss */
-.gallery-arrow.next:hover {
-  opacity: 1;
-}
-/* line 102, ../sass/_imageSlider.scss */
+/* line 116, ../sass/_imageSlider.scss */
 .gallery-arrow.prev {
   left: -50px;
   background-image: url("../img/slider-arrow-left.png");
 }
-/* line 106, ../sass/_imageSlider.scss */
-.gallery-arrow.prev:hover {
-  opacity: 1;
-}
 
-/* line 112, ../sass/_imageSlider.scss */
+/* line 122, ../sass/_imageSlider.scss */
 .slider-nav {
   width: 100%;
   display: -webkit-flex;
@@ -119,54 +124,51 @@
   align-content: center;
 }
 
-/* line 123, ../sass/_imageSlider.scss */
+/* line 133, ../sass/_imageSlider.scss */
 .nav-list {
   margin: 0;
+  margin-top: 15px;
   padding: 0;
   list-style: none;
 }
 
-/* line 129, ../sass/_imageSlider.scss */
+/* line 140, ../sass/_imageSlider.scss */
 .nav-label {
-  font-size: 10px;
-  color: grey;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: gray;
 }
 
-/* line 134, ../sass/_imageSlider.scss */
+/* line 146, ../sass/_imageSlider.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
   margin-right: 15px;
   margin-top: auto;
-  background-color: grey;
+  background-color: #d8d8d8;
 }
 
-/* line 142, ../sass/_imageSlider.scss */
+/* line 154, ../sass/_imageSlider.scss */
 .nav-dot {
-  width: 10px;
-  height: 10px;
-  margin-right: 15px;
+  width: 13px;
+  height: 13px;
+  margin-right: 13px;
   padding: 0;
   display: inline-block;
   border-radius: 10px;
-  background-color: grey;
+  background-color: #d8d8d8;
   -moz-transition: background-color 0.4s ease-in-out;
   -o-transition: background-color 0.4s ease-in-out;
   -webkit-transition: background-color 0.4s ease-in-out;
   transition: background-color 0.4s ease-in-out;
 }
-/* line 152, ../sass/_imageSlider.scss */
+/* line 164, ../sass/_imageSlider.scss */
 .nav-dot.select {
-  transform: scale(1.1, 1.1);
-  -moz-transition: -moz-transform 0.1s ease-in-out;
-  -o-transition: -o-transform 0.1s ease-in-out;
-  -webkit-transition: -webkit-transform 0.1s ease-in-out;
-  transition: transform 0.1s ease-in-out;
-  background-color: black;
+  background-color: #606060;
 }
-/* line 158, ../sass/_imageSlider.scss */
+/* line 170, ../sass/_imageSlider.scss */
 .nav-dot:hover {
-  background-color: black;
+  background-color: #606060;
 }
 
 /* line 3, ../sass/main.scss */
@@ -175,12 +177,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #ddd;
   font-family: Open Sans, Helvetica;
 }
 
-/* line 12, ../sass/main.scss */
+/* line 11, ../sass/main.scss */
 main {
   margin-left: auto;
   margin-right: auto;
+  max-width: 1000px;
 }

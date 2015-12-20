@@ -6,14 +6,18 @@
 
 @import 'compass/css3';
 
-$gallery-max-width: 800px;		// Image default max width;
+$slider-max-width: 100%;		// Image default max width;
 
-$next-arrow-img: url('../img/slider-arrow-right.png');
-$prev-arrow-img: url('../img/slider-arrow-left.png');
+$next-arrow-img: url('../img/slider-arrow-right.png');	// Icon for next arrow
+$prev-arrow-img: url('../img/slider-arrow-left.png');		// Icon for prev arrow
+$arrow-size: 35px;																			// Arrow diameter
+$arrow-position: 50px;																	// Arrow distance from gallery
 
-$nav-font-color: grey;				// Font color of navigation labels
-$nav-color: grey;							// Nav dot unselected color
-$nav-selected-color: black;		// Nav dot selected and hover color
+$nav-dot-size: 13px;						// Nav dot diameter
+$nav-font-size: 13px;						// Nav label font size
+$nav-font-color: gray;					// Nav label font color
+$nav-color: #d8d8d8;						// Nav dot unselected color
+$nav-selected-color: #606060;		// Nav dot selected and hover color
 
 /*
 
@@ -51,6 +55,14 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 */
 
 .image-slider{
+	max-width: $slider-max-width;
+	margin:0;
+	padding: 0;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+
 	@include flexbox((
     display: flex,
 		flex-wrap: wrap,
@@ -62,55 +74,53 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 
 .slider-gallery{
 	position: relative;
-	margin: 20px;
 }
 
 .gallery-wrapper{
 	margin: 0;
   overflow: hidden;
-	max-width: $gallery-max-width;
-	height: auto;
+	border: 1px solid black;		// This ugly border is only there because my images suck and have whitespace
 }
 
 .gallery-holder{
 	margin: 0;
 	display: inline-flex;
+	height: auto;
 }
 
 .gallery-image{
 	height: 100%;
+	margin-top: auto;
 	object-fit: cover;
 }
 
 .gallery-arrow{
 	position: absolute;
 	top: 45%;		// does not consider arrow size, change to calc eventually
-	width: 30px;
-	height: 30px;
-	background-size: cover;
-	opacity: .6;
+	width: $arrow-size;
+	height: $arrow-size;
+	background-size: contain;
+  background-repeat: no-repeat;
+	background-position: center;
+
 	@include transition(opacity, 0.5s);
+	opacity: .5;
+	&:hover{
+		opacity: .7;
+	}
 
 	&.next{
-		right: -50px;
+		right: -1 * $arrow-position;
 		background-image: $next-arrow-img;
-
-		&:hover{
-			opacity: 1;
-		}
 	}
 	&.prev{
-		left: -50px;
+		left: -1 * $arrow-position;
 		background-image: $prev-arrow-img;
-
-		&:hover{
-			opacity: 1;
-		}
 	}
 }
 
 .slider-nav{
-	width:100%;
+	width: 100%;
 	@include flexbox((
     display: flex,
 		flex-wrap: nowrap,
@@ -122,12 +132,14 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 
 .nav-list{
 	margin: 0;
+	margin-top: 15px;
 	padding: 0;
 	list-style: none;
 }
 
 .nav-label{
-	font-size: 10px;
+	margin-bottom: 8px;
+	font-size: $nav-font-size;
 	color: $nav-font-color;
 }
 
@@ -140,9 +152,9 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 }
 
 .nav-dot{
-	width: 10px;
-	height: 10px;
-	margin-right: 15px;
+	width: $nav-dot-size;
+	height: $nav-dot-size;
+	margin-right: 13px;
 	padding: 0;
 	display: inline-block;
 	border-radius: 10px;
@@ -150,8 +162,8 @@ $nav-selected-color: black;		// Nav dot selected and hover color
 	@include transition(background-color 0.4s ease-in-out);
 
 	&.select{
-		transform: scale(1.1, 1.1);
-		@include transition(transform .1s ease-in-out);
+		//transform: scale(1.1, 1.1);
+		//@include transition(transform .1s ease-in-out);
 		background-color: $nav-selected-color;
 	}
 
