@@ -16,7 +16,6 @@ Demo at [bernard.wang/image-slider](http://bernard.wang/image-slider/)
 * Optional settings with HTML data attributes
   * 'data-spacing' - Option for having separated images, sets position of divider
   * 'data-label1', 'data-label2' - If spacing attribute is set, these two labels will be shown
-  * 'data-width' - Option for setting the slider max-width through HTML as an alternative to CSS
 * Methods
 	* start - Automatically slide after duration
 	* stop - Stop automatic sliding
@@ -30,8 +29,7 @@ HTML
 <figure class='image-slider'
 		 data-spacing='0'			
 		 data-label1='Final'	
-		 data-label2='Process'
-		 data-width='40vw'>		
+		 data-label2='Process'>		
 	<img class='gallery-image'src=''/>
 	<img class='gallery-image'src=''/>
 	<img class='gallery-image'src=''/>

@@ -9,7 +9,6 @@ var ImageSlider = function () {
 		spacing			: 0, 			// Spacing of nav lists
 		label1			: '', 		// First nav list name
 		label2			: '', 		// Second nav list name
-		width				: '', 		// Gallery max width, 800px by default
 		slideSpeed	: 500,		// Slide transition duration
 		loopSpeed		: 5000		// Loop duration
 	};
@@ -174,9 +173,6 @@ var ImageSlider = function () {
 			image.addEventListener('click', nextSlide);
 		}
 		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions
-		if(config.width){
-			wrapper.style.maxWidth = config.width;
-		}
 
 		gallery.appendChild(wrapper);
 		gallery.appendChild(arrows[0]);
@@ -227,11 +223,9 @@ var ImageSlider = function () {
 		config.spacing = slider.dataset.spacing;
 		config.label1 = slider.dataset.label1;
 		config.label2 = slider.dataset.label2;
-		config.width = slider.dataset.width;
 		slider.removeAttribute('data-spacing');
 		slider.removeAttribute('data-label1');
 		slider.removeAttribute('data-label2');
-		slider.removeAttribute('data-width');
 	};
 
 	/**
