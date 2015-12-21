@@ -6,20 +6,18 @@ var ImageSlider = function () {
 
 	// Options
 	var config = {
-		spacing			: 0, 			// Spacing of nav lists
-		label1			: '', 		// First nav list name
-		label2			: '', 		// Second nav list name
-		slideSpeed	: 500,		// Slide transition duration
-		loopSpeed		: 5000		// Loop duration
+		spacing			: [0], 			// List of nav list indexes
+		labels			: ['',''], 	// List of nav list names
+		slideSpeed	: 500,			// Slide transition duration
+		loopSpeed		: 5000			// Loop duration
 	};
 
 	var currIndex = 0;
 	var numImages = 0;
 	var timer = 0;
 
-	var images;
-	var navList1;
-	var navList2;
+	var images = [];
+	var navLists = [];
 
 	// Element class name constants
 	var CLASSNAME = {
@@ -35,6 +33,18 @@ var ImageSlider = function () {
 		DOT: 'nav-dot',
 		DOT_SELECT: 'nav-dot select'
 	};
+
+	/**
+	 *	Helper function for finding the correct nav list
+	 */
+	var indexMap = function (index) {
+		for(var i = 0; i < config.spacing.length; i++){
+			if(index < config.spacing[i]) {
+				return i;
+			}
+		}
+		return i;
+	}
 
 	/**
 	 *	Animates image transition
@@ -59,16 +69,15 @@ var ImageSlider = function () {
 			return;
 		}
 
-		// Update dot in correct list
-		if (currIndex < config.spacing) {
-			navList1.children[currIndex + 1].className = CLASSNAME.DOT;
-		} else {
-			navList2.children[currIndex - config.spacing + 1].className = CLASSNAME.DOT;
-		}
-		if (newIndex < config.spacing) {
-			navList1.children[newIndex + 1].className = CLASSNAME.DOT_SELECT;
-		} else {
-			navList2.children[newIndex - config.spacing + 1].className = CLASSNAME.DOT_SELECT;
+		if(navLists.length > 0){
+			// Calculates indices of currIndex, unselect dot
+			var navIndex = indexMap(currIndex);
+			var dotIndex = (navIndex > 0) ? currIndex-config.spacing[navIndex-1]+1 : currIndex+1;
+			navLists[navIndex].children[dotIndex].className = CLASSNAME.DOT;
+			// Calculates indices of newIndex, select dot
+			navIndex = indexMap(newIndex);
+			dotIndex = (navIndex > 0) ? newIndex-config.spacing[navIndex-1]+1 : newIndex+1;
+			navLists[navIndex].children[dotIndex].className = CLASSNAME.DOT_SELECT;
 		}
 	};
 
@@ -115,30 +124,32 @@ var ImageSlider = function () {
 		var nav = document.createElement('nav');
 		nav.className = CLASSNAME.NAV;
 
-		// Append first list
-		navList1 = createNavList(config.label1);
-		nav.appendChild(navList1);
+		// Input labels and spacing are valid lengths
+		// Does not check for valid data
+		if(config.labels.length > 0 &&
+			 config.spacing.length > 0 &&
+			 config.spacing.length === config.labels.length-1){
 
-		// Append spacer div and second list if spacing is valid
-		if (config.spacing > 0 && config.spacing < numImages) {
-			var navSpacing = document.createElement('div');
-			navSpacing.className = CLASSNAME.SPACING;
-			navList2 = createNavList(config.label2);
-
-			nav.appendChild(navSpacing);
-			nav.appendChild(navList2);
-		} else {
-			config.spacing = numImages;
-		}
-
-		// Adds dots to nav lists
-		for (var i = 0; i < numImages; i++) {
-			var dot = createNavDot(i);
-			if (i < config.spacing) {
-				navList1.appendChild(dot);
-			} else {
-				navList2.appendChild(dot);
+			// Create nav lists and spacing bars
+			for(var i = 0; i < config.labels.length; i++) {
+				if(i != 0){		// spacing
+					var navSpacing = document.createElement('div');
+					navSpacing.className = CLASSNAME.SPACING;
+					nav.appendChild(navSpacing);
+				}		// nav lists
+				var navList = createNavList(config.labels[i]);
+				nav.appendChild(navList);
+				navLists.push(navList);
 			}
+
+			// Adds dots to nav lists
+			for (var i = 0; i < numImages; i++) {
+				var dot = createNavDot(i);
+				var index = indexMap(i)
+				navLists[index].appendChild(dot);
+			}
+		} else {
+			console.log('Invalid slider inputs, please the data attributes.\n \"data-labels\" is a comma separated list of strings \n \"data-spacing\" is a comma separated list of ascending integers.\n The label list MUST be one entry larger than the spacing list.');
 		}
 
 		return nav;
@@ -220,12 +231,12 @@ var ImageSlider = function () {
 	 *	Gets and removes config variables from data attributes
 	 */
 	var initConfig = function (slider) {
-		config.spacing = slider.dataset.spacing;
-		config.label1 = slider.dataset.label1;
-		config.label2 = slider.dataset.label2;
+		var spacingInput = slider.dataset.spacing;
+		var labelsInput = slider.dataset.labels;
+		config.spacing = spacingInput.split(',');
+		config.labels = labelsInput.split(',');
 		slider.removeAttribute('data-spacing');
-		slider.removeAttribute('data-label1');
-		slider.removeAttribute('data-label2');
+		slider.removeAttribute('data-labels');
 	};
 
 	/**

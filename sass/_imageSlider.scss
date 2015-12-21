@@ -14,7 +14,7 @@ $arrow-size: 35px;																			// Arrow diameter
 $arrow-position: 50px;																	// Arrow distance from gallery
 
 $nav-dot-size: 13px;						// Nav dot diameter
-$nav-font-size: 13px;						// Nav label font size
+$nav-font-size: 12px;						// Nav label font size
 $nav-font-color: gray;					// Nav label font color
 $nav-color: #d8d8d8;						// Nav dot unselected color
 $nav-selected-color: #606060;		// Nav dot selected and hover color
@@ -139,6 +139,7 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 
 .nav-label{
 	margin-bottom: 8px;
+	margin-left: 5px;
 	font-size: $nav-font-size;
 	color: $nav-font-color;
 }
@@ -146,7 +147,8 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 .nav-spacing{
 	width: 1px;
 	height: 20px;
-	margin-right: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
 	margin-top: auto;
 	background-color: $nav-color;
 }
@@ -154,7 +156,8 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 .nav-dot{
 	width: $nav-dot-size;
 	height: $nav-dot-size;
-	margin-right: 13px;
+	margin-right: 5px;
+	margin-left: 5px;
 	padding: 0;
 	display: inline-block;
 	border-radius: 10px;

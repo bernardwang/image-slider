@@ -12,6 +12,7 @@ var init = function () {
 	}
 
 	// for testing loop
+	/*
 	var start = document.getElementById('start');
 	var stop = document.getElementById('stop');
 	start.addEventListener('click', function () {
@@ -20,6 +21,7 @@ var init = function () {
 	stop.addEventListener('click', function () {
 		imageSliders[0].stopLoop();
 	});
+	*/
 
 };
 
