@@ -35,6 +35,18 @@ var ImageSlider = function () {
 	};
 
 	/**
+	 *	Helper function for checking valid spacing input
+	 */
+	var isValidSpacing = function() {
+		for(var i = 0; i < config.spacing.length-1; i++){
+			if(config.spacing[i+1] < config.spacing[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 *	Helper function for finding the correct nav list
 	 */
 	var indexMap = function (index) {
@@ -124,32 +136,32 @@ var ImageSlider = function () {
 		var nav = document.createElement('nav');
 		nav.className = CLASSNAME.NAV;
 
-		// Input labels and spacing are valid lengths
-		// Does not check for valid data
-		if(config.labels.length > 0 &&
-			 config.spacing.length > 0 &&
-			 config.spacing.length === config.labels.length-1){
-
-			// Create nav lists and spacing bars
-			for(var i = 0; i < config.labels.length; i++) {
-				if(i != 0){		// spacing
-					var navSpacing = document.createElement('div');
-					navSpacing.className = CLASSNAME.SPACING;
-					nav.appendChild(navSpacing);
-				}		// nav lists
-				var navList = createNavList(config.labels[i]);
-				nav.appendChild(navList);
-				navLists.push(navList);
-			}
-
-			// Adds dots to nav lists
-			for (var i = 0; i < numImages; i++) {
-				var dot = createNavDot(i);
-				var index = indexMap(i)
-				navLists[index].appendChild(dot);
-			}
-		} else {
+		// Checks for valid input
+		if(config.labels.length <= 0 ||
+			 config.spacing.length <= 0 ||
+			 config.spacing.length != config.labels.length-1 ||
+			 !isValidSpacing()) {
 			console.log('Invalid slider inputs, please the data attributes.\n \"data-labels\" is a comma separated list of strings \n \"data-spacing\" is a comma separated list of ascending integers.\n The label list MUST be one entry larger than the spacing list.');
+			return nav;
+		}
+
+		// Create nav lists and spacing bars
+		for(var i = 0; i < config.labels.length; i++) {
+			if(i != 0){		// spacing
+				var navSpacing = document.createElement('div');
+				navSpacing.className = CLASSNAME.SPACING;
+				nav.appendChild(navSpacing);
+			}		// nav lists
+			var navList = createNavList(config.labels[i]);
+			nav.appendChild(navList);
+			navLists.push(navList);
+		}
+
+		// Adds dots to nav lists
+		for (var i = 0; i < numImages; i++) {
+			var dot = createNavDot(i);
+			var index = indexMap(i)
+			navLists[index].appendChild(dot);
 		}
 
 		return nav;
