@@ -84,7 +84,13 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 
 .gallery-holder{
 	margin: 0;
-	display: inline-flex;
+	@include flexbox((
+    display: flex,
+		flex-wrap: nowrap,
+    flex-direction: row,
+		justify-content: flex-start,
+		align-content: flex-start
+  ));
 	height: auto;
 }
 
