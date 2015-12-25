@@ -65,7 +65,7 @@ var ImageSlider = function () {
 		var holder = images[0].parentElement; // Parent div of images
 		var position = -(100 / numImages) * newIndex + '%';
 
-		if(jQuery){
+		if(window.jQuery){
 			$.Velocity.animate(holder, {translateX: position}, config.slideSpeed);
 		} else {
 			Velocity(holder, {translateX: position}, config.slideSpeed);
