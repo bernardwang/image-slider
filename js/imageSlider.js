@@ -263,6 +263,11 @@ var ImageSlider = function () {
 		slider.appendChild(gallery);
 		slider.appendChild(nav);
 
+		var mc = new Hammer(slider);
+		mc.on('swipe', function(ev) {
+			alert(1);
+		});
+
 		update(0); // Selects the first image
 	};
 

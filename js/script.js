@@ -6,7 +6,7 @@ var init = function () {
 	var elements = document.getElementsByClassName('image-slider');
 
 	for (var i = 0; i < elements.length; i++) {
-		var slider = ImageSlider(); // Create new Slider object
+		var slider = new ImageSlider(); // Create new Slider object
 		slider.init(elements[i]); // Initialize it with HTML element
 		imageSliders.push(slider); // Save the Slider objects
 	}
