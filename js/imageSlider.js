@@ -65,11 +65,11 @@ var ImageSlider = function () {
 		var holder = images[0].parentElement; // Parent div of images
 		var position = -(100 / numImages) * newIndex + '%';
 
-		// With JQuery
-		//$.Velocity.animate(holder, {translateX: position}, config.slideSpeed);
-
-		// Without JQuery
-		Velocity(holder, {translateX: position}, config.slideSpeed);
+		if(jQuery){
+			$.Velocity.animate(holder, {translateX: position}, config.slideSpeed);
+		} else {
+			Velocity(holder, {translateX: position}, config.slideSpeed);
+		}
 	};
 
 	/**
@@ -263,13 +263,16 @@ var ImageSlider = function () {
 		slider.appendChild(gallery);
 		slider.appendChild(nav);
 
-		var mc = new Hammer(slider);
-		mc.on('swipeleft', function(ev) {
-			nextSlide();
-		});
-		mc.on('swiperight', function(ev) {
-			prevSlide();
-		});
+		// Swipe on screens
+		if(Hammer){
+			var mc = new Hammer(slider);
+			mc.on('swipeleft', function(ev) {
+				nextSlide();
+			});
+			mc.on('swiperight', function(ev) {
+				prevSlide();
+			});
+		}
 
 		update(0); // Selects the first image
 	};
