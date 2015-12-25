@@ -264,8 +264,11 @@ var ImageSlider = function () {
 		slider.appendChild(nav);
 
 		var mc = new Hammer(slider);
-		mc.on('swipe', function(ev) {
-			alert(1);
+		mc.on('swipeleft', function(ev) {
+			nextSlide();
+		});
+		mc.on('swiperight', function(ev) {
+			prevSlide();
 		});
 
 		update(0); // Selects the first image
