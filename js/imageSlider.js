@@ -39,7 +39,8 @@ var ImageSlider = function () {
 	 */
 	var isValidSpacing = function() {
 		for(var i = 0; i < config.spacing.length-1; i++){
-			if(config.spacing[i+1] < config.spacing[i]){
+			if(config.spacing[i] < 0 ||
+			   config.spacing[i+1] <= config.spacing[i]) {
 				return false;
 			}
 		}
@@ -86,6 +87,7 @@ var ImageSlider = function () {
 			var navIndex = indexMap(currIndex);
 			var dotIndex = (navIndex > 0) ? currIndex-config.spacing[navIndex-1]+1 : currIndex+1;
 			navLists[navIndex].children[dotIndex].className = CLASSNAME.DOT;
+
 			// Calculates indices of newIndex, select dot
 			navIndex = indexMap(newIndex);
 			dotIndex = (navIndex > 0) ? newIndex-config.spacing[navIndex-1]+1 : newIndex+1;
@@ -123,8 +125,8 @@ var ImageSlider = function () {
 	var createNavList = function (text) {
 		var list = document.createElement('div');
 		var label = document.createElement('div');
-		label.className = CLASSNAME.LABEL;
 		list.className = CLASSNAME.LIST;
+		label.className = CLASSNAME.LABEL;
 		if(text) {
 			label.appendChild(document.createTextNode(text));
 		}
@@ -137,30 +139,34 @@ var ImageSlider = function () {
 		nav.className = CLASSNAME.NAV;
 
 		// Checks for valid input
-		if(config.labels.length <= 0 ||
-			 config.spacing.length <= 0 ||
-			 config.spacing.length != config.labels.length-1 ||
-			 !isValidSpacing()) {
-			console.log('Invalid slider inputs, please the data attributes.\n \"data-labels\" is a comma separated list of strings \n \"data-spacing\" is a comma separated list of ascending integers.\n The label list MUST be one entry larger than the spacing list.');
+		if(!isValidSpacing()) {
+			console.log('Invalid slider input, please check the data attributes.\n \"data-spacing\" is a comma separated list of ascending integers.\n \"data-labels\" is a comma separated list of strings.');
 			return nav;
 		}
 
-		// Create nav lists and spacing bars
-		for(var i = 0; i < config.labels.length; i++) {
-			if(i != 0){		// spacing
+		// Appends spacers and nav lists in specified order
+		var posIndex = -1; 	// Account for 0 spacing
+		var spaceIndex = 0;
+		for(var i = 0; i < (config.spacing.length*2) + 1; i++){
+			if( config.spacing.length == 0 ||								// No spacing specified
+				  spaceIndex >= config.spacing.length || 			// Last nav list
+				  posIndex < config.spacing[spaceIndex] ) { 	// Before spacer
+				var navList = createNavList(config.labels[spaceIndex]);
+				nav.appendChild(navList);
+				navLists.push(navList);
+				posIndex = config.spacing[spaceIndex]
+			} else {
 				var navSpacing = document.createElement('div');
 				navSpacing.className = CLASSNAME.SPACING;
 				nav.appendChild(navSpacing);
-			}		// nav lists
-			var navList = createNavList(config.labels[i]);
-			nav.appendChild(navList);
-			navLists.push(navList);
+				spaceIndex++;
+			}
 		}
 
 		// Adds dots to nav lists
 		for (var i = 0; i < numImages; i++) {
 			var dot = createNavDot(i);
-			var index = indexMap(i)
+			var index = indexMap(i);
 			navLists[index].appendChild(dot);
 		}
 
@@ -245,8 +251,8 @@ var ImageSlider = function () {
 	var initConfig = function (slider) {
 		var spacingInput = slider.dataset.spacing;
 		var labelsInput = slider.dataset.labels;
-		config.spacing = spacingInput.split(',');
-		config.labels = labelsInput.split(',');
+		config.spacing = spacingInput ? spacingInput.split(',') : [];
+		config.labels = labelsInput ? labelsInput.split(',') : [];
 		slider.removeAttribute('data-spacing');
 		slider.removeAttribute('data-labels');
 	};
