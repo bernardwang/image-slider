@@ -11,12 +11,12 @@ Demo at [http://bernard.wang/image-slider/](http://bernard.wang/image-slider/)
 * Multiple sliders on a page, each controlled independently
 * No id's needed
 * No JQuery needed
-* Simple slider markup, rest of the HTML is builtout with JS
+* Simple slider markup, rest of the HTML is built with JS
 * Responsive!
 * Optional settings with HTML data attributes
-  * 'data-spacing' - Option for having separated images, sets position of divider
-  * 'data-label1', 'data-label2' - If spacing attribute is set, these two labels will be shown
-* Methods
+  * 'data-spacing' - Sets position of dividers in nav bar, comma separated list of integers
+  * 'data-labels' - Sets labels of each nav section, comma seperated list of Strings
+* Public methods
 	* start - Automatically slide after duration
 	* stop - Stop automatic sliding
 	* next - Advance to next slide
@@ -27,9 +27,8 @@ Demo at [http://bernard.wang/image-slider/](http://bernard.wang/image-slider/)
 HTML
 ```
 <figure class='image-slider'
-		 data-spacing='0'			
-		 data-label1='Final'	
-		 data-label2='Process'>		
+				data-spacing='3,5'
+				data-labels='Final,Process,Other'>		
 	<img class='gallery-image'src=''/>
 	<img class='gallery-image'src=''/>
 	<img class='gallery-image'src=''/>
@@ -39,11 +38,9 @@ HTML
 
 JS
 ```javascript
-var imageSliders = []; // List of all sliders
 var elements = document.getElementsByClassName('image-slider'); // Select every slider element
-for (var i = 0; i < elements.length; i++) {
-	var slider = ImageSlider(); // Create new Slider object
-	slider.init(elements[i]); // Initialize it
-	imageSliders.push(slider); // Save the Slider object for future use
+for (var i = 0; i < elements.length; i++) {											
+	var slider = ImageSlider(); 																	// Create new Slider object
+	slider.init(elements[i]); 																		// Initialize it
 }
 ```
