@@ -198,7 +198,7 @@ var ImageSlider = function () {
 			var image = slider.children[0];
 			imageFrag.appendChild(image);
 			image.style.width = 100 / numImages + '%'; // Responsive image width
-			image.style.display = 'block'; // Show images
+			image.style.display = 'inline-block'; // Show images
 			image.addEventListener('click', nextSlide);
 		}
 		holder.style.width = 100 * numImages + '%';		// Responsive slide transitions

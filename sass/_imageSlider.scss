@@ -88,7 +88,9 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 }
 
 .gallery-image{
-	float: left;
+	display: none;		// Don't display images until gallery loads properly
+	//display: inline-block;
+	vertical-align: middle;
 	height: 100%;
 	margin-top: auto;
 	object-fit: cover;
