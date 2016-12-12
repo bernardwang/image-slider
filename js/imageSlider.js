@@ -15,7 +15,6 @@ var ImageSlider = function () {
 	var currIndex = 0;
 	var numImages = 0;
 	var timer = 0;
-
 	var images = [];
 	var navLists = [];
 
@@ -197,6 +196,7 @@ var ImageSlider = function () {
 		for (var i = 0; i < numImages; i++) {
 			var image = slider.children[0];
 			imageFrag.appendChild(image);
+			image.className = image.className + " loaded"; // for lazy loading
 			image.style.width = 100 / numImages + '%'; // Responsive image width
 			image.style.display = 'inline-block'; // Show images
 			image.addEventListener('click', nextSlide);
