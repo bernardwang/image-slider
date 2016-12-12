@@ -94,6 +94,12 @@ $nav-selected-color: #606060;		// Nav dot selected and hover color
 	height: 100%;
 	margin-top: auto;
 	object-fit: cover;
+
+	@include transition(opacity, 0.3s);
+	opacity: 0;
+	&.loaded {
+		opacity: 1;
+	}
 }
 
 .gallery-arrow{

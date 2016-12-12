@@ -78,9 +78,18 @@
   height: 100%;
   margin-top: auto;
   object-fit: cover;
+  -moz-transition: opacity, 0.3s;
+  -o-transition: opacity, 0.3s;
+  -webkit-transition: opacity, 0.3s;
+  transition: opacity, 0.3s;
+  opacity: 0;
+}
+/* line 100, ../sass/_imageSlider.scss */
+.gallery-image.loaded {
+  opacity: 1;
 }
 
-/* line 100, ../sass/_imageSlider.scss */
+/* line 105, ../sass/_imageSlider.scss */
 .gallery-arrow {
   position: absolute;
   top: 45%;
@@ -95,22 +104,22 @@
   transition: opacity, 0.5s;
   opacity: .5;
 }
-/* line 111, ../sass/_imageSlider.scss */
+/* line 116, ../sass/_imageSlider.scss */
 .gallery-arrow:hover {
   opacity: .7;
 }
-/* line 115, ../sass/_imageSlider.scss */
+/* line 120, ../sass/_imageSlider.scss */
 .gallery-arrow.next {
   right: -50px;
   background-image: url("../img/slider-arrow-right.png");
 }
-/* line 119, ../sass/_imageSlider.scss */
+/* line 124, ../sass/_imageSlider.scss */
 .gallery-arrow.prev {
   left: -50px;
   background-image: url("../img/slider-arrow-left.png");
 }
 
-/* line 125, ../sass/_imageSlider.scss */
+/* line 130, ../sass/_imageSlider.scss */
 .slider-nav {
   width: 100%;
   height: 100%;
@@ -129,7 +138,7 @@
   align-items: stretch;
 }
 
-/* line 139, ../sass/_imageSlider.scss */
+/* line 144, ../sass/_imageSlider.scss */
 .nav-list {
   margin: 0;
   padding: 0;
@@ -137,7 +146,7 @@
   list-style: none;
 }
 
-/* line 146, ../sass/_imageSlider.scss */
+/* line 151, ../sass/_imageSlider.scss */
 .nav-label {
   margin-left: 5px;
   position: absolute;
@@ -147,7 +156,7 @@
   white-space: nowrap;
 }
 
-/* line 155, ../sass/_imageSlider.scss */
+/* line 160, ../sass/_imageSlider.scss */
 .nav-spacing {
   width: 1px;
   height: 20px;
@@ -156,7 +165,7 @@
   background-color: #d8d8d8;
 }
 
-/* line 163, ../sass/_imageSlider.scss */
+/* line 168, ../sass/_imageSlider.scss */
 .nav-dot {
   width: 13px;
   height: 13px;
@@ -171,11 +180,11 @@
   -webkit-transition: background-color 0.4s ease-in-out;
   transition: background-color 0.4s ease-in-out;
 }
-/* line 174, ../sass/_imageSlider.scss */
+/* line 179, ../sass/_imageSlider.scss */
 .nav-dot.select {
   background-color: #606060;
 }
-/* line 180, ../sass/_imageSlider.scss */
+/* line 185, ../sass/_imageSlider.scss */
 .nav-dot:hover {
   background-color: #606060;
 }
